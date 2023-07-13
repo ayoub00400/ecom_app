@@ -30,12 +30,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             child: Stack(
                               alignment: AlignmentDirectional.topCenter,
                               children: [
-                                Image.network(
-                                  productData.image,
-                                  fit: BoxFit.contain,
+                                Hero(
+                                  tag: productData.id,
+                                  child: Image.network(
+                                    productData.image,
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                    horizontal: 16,
+                                  ),
                                   child: Row(
                                     children: [
                                       IconButton(
@@ -76,13 +82,21 @@ class ProductDetailsScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(productData.category,
-                                        style: const TextStyle(color: Colors.grey, fontSize: 16)),
+                                    Text(
+                                      productData.category,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                     Text(
                                       '\$${productData.price}',
                                       maxLines: 3,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w400, fontSize: 22, color: Colors.green[800]),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 22,
+                                        color: Colors.green[800],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -92,7 +106,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                 Text(
                                   productData.title,
                                   maxLines: 3,
-                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 16,
@@ -127,35 +144,47 @@ class ProductDetailsScreen extends StatelessWidget {
                                     return showMore.value
                                         ? Column(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'The amber droplet hung from the branch, reaching fullness and ready to drop. It waited. While many of the other droplets were satisfied to form as big as they could and release, this droplet had other plans. It wanted to be part of history. It wanted to be remembered long after all the other droplets had dissolved into history. So it waited for the perfect specimen to fly by to trap and capture that it hoped would eventually be discovered hundreds of years in the future.',
-                                                style: const TextStyle(color: Colors.grey, fontSize: 15, height: 1.4),
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 15,
+                                                  height: 1.4,
+                                                ),
                                               ),
                                               Center(
-                                                  child: TextButton.icon(
-                                                      onPressed: () {
-                                                        showMore.value = !showMore.value;
-                                                      },
-                                                      icon: Icon(Icons.remove),
-                                                      label: Text('Show Less')))
+                                                child: TextButton.icon(
+                                                  onPressed: () {
+                                                    showMore.value = !showMore.value;
+                                                  },
+                                                  icon: const Icon(Icons.remove),
+                                                  label: const Text('Show Less'),
+                                                ),
+                                              )
                                             ],
                                           )
                                         : Column(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'The amber droplet hung from the branch, reaching fullness and ready to drop. It waited. While many of the other droplets were satisfied to form as big as they could and release, this droplet had other plans. It wanted to be part of history. It wanted to be remembered long after all the other droplets had dissolved into history. So it waited for the perfect specimen to fly by to trap and capture that it hoped would eventually be discovered hundreds of years in the future..',
                                                 maxLines: 6,
-                                                style: const TextStyle(color: Colors.grey, fontSize: 15, height: 1.4),
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 15,
+                                                  height: 1.4,
+                                                ),
                                                 softWrap: true,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Center(
-                                                  child: TextButton.icon(
-                                                      onPressed: () {
-                                                        showMore.value = !showMore.value;
-                                                      },
-                                                      icon: Icon(Icons.add),
-                                                      label: Text('Show More')))
+                                                child: TextButton.icon(
+                                                  onPressed: () {
+                                                    showMore.value = !showMore.value;
+                                                  },
+                                                  icon: const Icon(Icons.add),
+                                                  label: const Text('Show More'),
+                                                ),
+                                              )
                                             ],
                                           );
                                   },
@@ -169,13 +198,18 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
+                  padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                          child: CustomButton(onPressed: () {}, buttonLabel: 'ADD TO CART', buttColor: Colors.white)),
+                        child: CustomButton(
+                          onPressed: () {},
+                          buttonLabel: 'ADD TO CART',
+                          buttColor: Colors.white,
+                        ),
+                      ),
                       const SizedBox(
                         width: 8,
                       ),

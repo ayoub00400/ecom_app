@@ -1,9 +1,7 @@
-import 'package:ecom_app/config/routing/route_manager.dart';
-
-import '../../../utils/constants.dart';
-
 import 'package:flutter/material.dart';
 
+import '../../../config/routing/route_manager.dart';
+import '../../../utils/constants.dart';
 import 'widgets/custom_list_tile.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -13,10 +11,10 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Container(
+          child: SizedBox(
         width: double.maxFinite,
         child: Column(children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -26,11 +24,11 @@ class UserProfileScreen extends StatelessWidget {
               backgroundImage: AssetImage(AssetManager.profileImg),
             ),
           ),
-          Text(
+          const Text(
             'Marting Williams',
             style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 36,
           ),
           Container(
@@ -41,25 +39,25 @@ class UserProfileScreen extends StatelessWidget {
                 prefixIcon: Icons.person,
                 suffixIcon: Icons.arrow_forward_ios_rounded,
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: 'Settings',
                 prefixIcon: Icons.settings,
                 suffixIcon: Icons.arrow_forward_ios_rounded,
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: 'Language',
                 prefixIcon: Icons.translate,
                 suffixIcon: Icons.arrow_forward_ios_rounded,
               ),
-              CustomListTile(
+              const CustomListTile(
                 title: 'Logout',
                 prefixIcon: Icons.logout_rounded,
                 suffixIcon: Icons.arrow_forward_ios_rounded,
               ),
-            ]),
+            ],),
           )
-        ]),
-      )),
+        ],),
+      ),),
     );
   }
 }

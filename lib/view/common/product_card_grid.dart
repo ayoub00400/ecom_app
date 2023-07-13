@@ -18,6 +18,7 @@ class ProductCard extends StatelessWidget {
         height: 310,
         width: 250,
         child: Card(
+          elevation: 5,
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Column(
@@ -25,18 +26,21 @@ class ProductCard extends StatelessWidget {
               Flexible(
                 child: SizedBox(
                   height: 300,
-                  child: Image.network(
-                    productDetailes.image,
-                    fit: BoxFit.contain,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress != null) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return child;
-                      }
-                    },
+                  child: Hero(
+                    tag: productDetailes.id,
+                    child: Image.network(
+                      productDetailes.image,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress != null) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return child;
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),

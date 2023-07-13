@@ -18,6 +18,7 @@ class ProductCardList extends StatelessWidget {
         height: 200,
         width: double.maxFinite,
         child: Card(
+          elevation: 5,
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -26,9 +27,12 @@ class ProductCardList extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   width: 120,
-                  child: Image.network(
-                    productDetailes.image,
-                    fit: BoxFit.contain,
+                  child: Hero(
+                    tag: productDetailes.id,
+                    child: Image.network(
+                      productDetailes.image,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),

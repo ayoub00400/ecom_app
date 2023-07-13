@@ -6,13 +6,13 @@ class CustomListTile extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Function()? onTap;
-  CustomListTile(
+  const CustomListTile(
       {super.key,
       required this.title,
       this.prefixIcon,
       this.suffixIcon,
       this.onTap,
-      this.tileColor = Colors.transparent});
+      this.tileColor = Colors.transparent,});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomListTile extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         tileColor: Colors.amber.withOpacity(.2),
         title: Text(title),
         leading: Icon(prefixIcon),

@@ -14,13 +14,13 @@ class ProductRepoImp implements IProductRepository {
 
       List<dynamic> decodedResponse = jsonDecode(response.body);
 
-      List<Product> productsList = decodedResponse.map((product) => Product.fromJson(product)).toList();
+      List<Product> productsList =
+          decodedResponse.map((product) => Product.fromJson(product)).toList();
       print(productsList);
 
       return productsList;
     } catch (e) {
-      print(e);
-      throw Exception();
+      throw Exception(e.toString());
     }
   }
 }

@@ -33,7 +33,8 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon),
           label: Text(label),
-          suffixIcon: GestureDetector(onTap: () => onTap, child: Icon(suffixIcon)),
+          suffixIcon:
+              GestureDetector(onTap: () => onTap, child: Icon(suffixIcon)),
         ),
       ),
     );

@@ -32,31 +32,71 @@ class HomeScreen extends StatelessWidget {
                 );
               }
               if (state is LoadingProductsDone || state is HomeLayoutChanged) {
-                return BlocProvider.of<HomeCubit>(context).isGrid
-                    ? GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: .75,
-                          mainAxisSpacing: 1,
-                          crossAxisSpacing: 0,
+                return Expanded(
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          color: Colors.amber.withOpacity(.8),
+                          height: 60,
+                          width: double.maxFinite,
+                          child: Row(children: [
+                            SizedBox(
+                                width: 320,
+                                child: SearchBar(
+                                  leading: Icon(Icons.search),
+                                )),
+                            Spacer(),
+                            Icon(Icons.settings)
+                          ]),
                         ),
-                        itemCount: BlocProvider.of<HomeCubit>(context).productsList!.length,
-                        itemBuilder: (context, index) {
-                          return ProductCard(productDetailes: BlocProvider.of<HomeCubit>(context).productsList![index]);
-                        },
-                      )
-                    : ListView.builder(
-                        itemCount: BlocProvider.of<HomeCubit>(context).productsList!.length,
-                        itemBuilder: (context, index) {
-                          return ProductCardList(
-                            productDetailes: BlocProvider.of<HomeCubit>(context).productsList![index],
-                          );
-                        },
-                      );
+                        Expanded(
+                          child: Container(
+                            child: RefreshIndicator(
+                              onRefresh: () => BlocProvider.of<HomeCubit>(context).loadProduct(),
+                              child: BlocProvider.of<HomeCubit>(context).isGrid
+                                  ? GridView.builder(
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: .75,
+                                        mainAxisSpacing: 1,
+                                        crossAxisSpacing: 0,
+                                      ),
+                                      itemCount: BlocProvider.of<HomeCubit>(context).productsList!.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductCard(
+                                          productDetailes: BlocProvider.of<HomeCubit>(context).productsList![index],
+                                        );
+                                      },
+                                    )
+                                  : ListView.builder(
+                                      itemCount: BlocProvider.of<HomeCubit>(context).productsList!.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductCardList(
+                                          productDetailes: BlocProvider.of<HomeCubit>(context).productsList![index],
+                                        );
+                                      },
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               }
               if (state is LoadingProductsFailed || state is LoadingProductsError) {
-                return const Center(
-                  child: Text('Gathering data failed, please refresh the page!'),
+                return RefreshIndicator(
+                  onRefresh: () => BlocProvider.of<HomeCubit>(context).loadProduct(),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 2,
+                      ),
+                      const Center(child: Text('Gathering data failed, please refresh the page!'))
+                    ],
+                  ),
                 );
               }
 

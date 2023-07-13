@@ -12,17 +12,14 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   loadProduct() async {
     try {
-      print(productsList);
       emit(LoadingProducts());
-      productsList = await ProductApiRepo.getAllProducts();
-      print(productsList);
+      productsList = await productApiRepo.getAllProducts();
+
       emit(LoadingProductsDone());
     } catch (e) {
       if (e is Exception) {
-        print(e);
         emit(LoadingProductsError(e.toString()));
       } else {
-        print('failed');
         emit(LoadingProductsFailed());
       }
     }

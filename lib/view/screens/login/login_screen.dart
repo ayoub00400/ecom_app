@@ -8,8 +8,10 @@ import 'cubit/login_cubit.dart';
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameFieldController = TextEditingController(text: 'johnd');
-  final TextEditingController passwordFieldController = TextEditingController(text: 'm38rmF\$');
+  final TextEditingController usernameFieldController =
+      TextEditingController(text: 'johnd');
+  final TextEditingController passwordFieldController =
+      TextEditingController(text: 'm38rmF\$');
   final formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
@@ -20,7 +22,8 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           print(state);
           if (state is LoginDone) {
-            Navigator.of(context).popAndPushNamed(RouterManager.homeScreenRoute);
+            Navigator.of(context)
+                .popAndPushNamed(RouterManager.homeScreenRoute);
           }
         },
         child: SafeArea(
@@ -47,7 +50,9 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomTextField(
-                              controller: usernameFieldController, label: 'Username:', prefixIcon: Icons.email),
+                              controller: usernameFieldController,
+                              label: 'Username:',
+                              prefixIcon: Icons.email,),
                           CustomTextField(
                             controller: passwordFieldController,
                             label: 'Password:',
@@ -65,8 +70,9 @@ class LoginScreen extends StatelessWidget {
                         buttonLabel: 'Login',
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            BlocProvider.of<LoginCubit>(context)
-                                .login(usernameFieldController.text, passwordFieldController.text);
+                            BlocProvider.of<LoginCubit>(context).login(
+                                usernameFieldController.text,
+                                passwordFieldController.text,);
                           }
                         },
                       );

@@ -31,12 +31,12 @@ class MyApp extends StatelessWidget {
                 ? RouterManager.homeLayoutScreenRoute
                 : RouterManager.loginScreenRoute,
             routes: RouterManager.routes,
-            localizationsDelegates: [
+            localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: [
+            supportedLocales: const [
               Locale('en'), // English
               Locale('ar'), // Arabic
             ],

@@ -15,18 +15,16 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void login(String userName, String password) async {
-    print('im inside');
     try {
       emit(LoginLoading());
-      var token = await UserApiRepo.authUser(userName, password);
+      var token = await userApiRepo.authUser(userName, password);
+
       Prefs.setString(SPKeys.userToken, token);
       emit(LoginDone());
     } catch (e) {
       if (e is Exception) {
-        print(e);
         emit(LoginError('login error please try later.'));
       } else {
-        print(e);
         emit(LoginFailed());
       }
     }

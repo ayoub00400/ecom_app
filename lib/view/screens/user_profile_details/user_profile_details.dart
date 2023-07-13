@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../../../utils/constants.dart';
 import '../../common/custom_button.dart';
 import '../login/widgets/custom_text_field.dart';
-import 'package:flutter/material.dart';
 
 class UserProfileDetailsScreen extends StatelessWidget {
   const UserProfileDetailsScreen({super.key});
@@ -14,7 +15,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
                 height: 100,
                 child: Row(children: [
                   Padding(
@@ -29,7 +30,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        Text(
+                        const Text(
                           'Marting Williams',
                           style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                         ),
@@ -39,11 +40,11 @@ class UserProfileDetailsScreen extends StatelessWidget {
                             height: 40,
                             width: 80,
                             buttonLabel: 'Edit profile',
-                            buttColor: Colors.amber)
-                      ])),
-                ]),
+                            buttColor: Colors.amber,)
+                      ],),),
+                ],),
               ),
-              Container(
+              const SizedBox(
                 width: double.maxFinite,
                 child: Column(
                   children: [
@@ -72,6 +73,6 @@ class UserProfileDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),);
   }
 }

@@ -1,11 +1,10 @@
-import 'package:ecom_app/view/screens/user_profile_details/user_profile_details.dart';
-
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/home_layout/home_layout.dart';
 import '../../view/screens/login/login_screen.dart';
 import '../../view/screens/product_details.dart/prduct_details_screen.dart';
-import '../../view/screens/user_cart/user_cart_screen.dart';
+import '../../view/screens/user_order/user_order_screen.dart';
 import '../../view/screens/user_profile/user_profile_screen.dart';
+import '../../view/screens/user_profile_details/user_profile_details.dart';
 
 class RouterManager {
   static const String loginScreenRoute = '/login_screen';
@@ -21,15 +20,15 @@ class RouterManager {
       case loginScreenRoute:
         return LoginScreen();
       case homeScreenRoute:
-        return HomeScreen();
+        return const HomeScreen();
       case userProfileScreenRoute:
-        return UserProfileScreen();
+        return const UserProfileScreen();
       case productDetailsScreenRoute:
-        return HomeScreen();
+        return const HomeScreen();
       case userCartScreenRoute:
-        return UserCartScreen();
+        return const UserOrderScreen();
       case userProfileDetailsScreenRoute:
-        return UserProfileDetailsScreen();
+        return const UserProfileDetailsScreen();
 
       default:
         LoginScreen();
@@ -40,7 +39,7 @@ class RouterManager {
     loginScreenRoute: (context) => LoginScreen(),
     homeLayoutScreenRoute: (context) => const HomeLayoutScreen(),
     homeScreenRoute: (context) => const HomeScreen(),
-    userCartScreenRoute: (context) => LoginScreen(),
+    userCartScreenRoute: (context) => const UserOrderScreen(),
     userProfileScreenRoute: (context) => LoginScreen(),
     productDetailsScreenRoute: (context) => const ProductDetailsScreen(),
     userProfileDetailsScreenRoute: (context) => const UserProfileDetailsScreen(),

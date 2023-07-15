@@ -9,12 +9,13 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   bool isGrid = true;
   List<Product>? productsList;
+  List<Product> resultOfSearch = [];
   HomeCubit() : super(HomeInitial());
-  loadProduct() async {
+  Future<void> loadProduct() async {
     try {
       emit(LoadingProducts());
       productsList = await productApiRepo.getAllProducts();
-
+      resultOfSearch = productsList!;
       emit(LoadingProductsDone());
     } catch (e) {
       if (e is Exception) {
@@ -25,19 +26,23 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  changeViewLayout() {
+  void changeViewLayout() {
     isGrid = !isGrid;
     emit(HomeLayoutChanged());
   }
 
-  searchProduct(String searchText) {
+  void searchProduct(String searchText) {
+    resultOfSearch = productsList!;
+    print('208 Pegeot');
     emit(LoadingProducts());
-    productsList = productsList!
+    resultOfSearch = productsList!
         .where(
-          (element) =>
-              element.title.toLowerCase().contains(searchText.toLowerCase()),
+          (element) => element.title
+              .toLowerCase()
+              .contains(searchText.toLowerCase().trim()),
         )
         .toList();
+    resultOfSearch = resultOfSearch.isEmpty ? [] : resultOfSearch;
 
     emit(LoadingProductsDone());
   }

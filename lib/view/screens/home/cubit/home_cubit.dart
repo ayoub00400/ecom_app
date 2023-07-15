@@ -30,4 +30,16 @@ class HomeCubit extends Cubit<HomeState> {
     print(isGrid);
     emit(HomeLayoutChanged());
   }
+
+  searchProduct(String searchText) {
+    emit(LoadingProducts());
+    print('911');
+    productsList = productsList!
+        .where((element) =>
+            element.title.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
+
+    print(productsList);
+    emit(LoadingProductsDone());
+  }
 }

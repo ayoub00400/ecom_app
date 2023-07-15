@@ -12,7 +12,10 @@ class UserRepoImp implements IUserRepository {
     try {
       Map<String, dynamic> accessToken;
 
-      var response = await post(Uri.parse(ApiHelper.authUser), body: {'username': username, 'password': password});
+      var response = await post(
+        Uri.parse(ApiHelper.authUser),
+        body: {'username': username, 'password': password},
+      );
 
       accessToken = jsonDecode(response.body);
       return accessToken['token'];
@@ -23,11 +26,14 @@ class UserRepoImp implements IUserRepository {
 
   @override
   Future<User> getUser(int userId) async {
-    try {} catch (e) {}
-    late User user;
-    var response = await get(Uri.parse('${ApiHelper.userData}/$userId'));
-    var decodedResponse = json.decode(response.body);
-    user = User.fromJson(decodedResponse);
-    return user;
+    try {
+      User user;
+      var response = await get(Uri.parse('${ApiHelper.userData}/$userId'));
+      var decodedResponse = json.decode(response.body);
+      user = User.fromJson(decodedResponse);
+      return user;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 }

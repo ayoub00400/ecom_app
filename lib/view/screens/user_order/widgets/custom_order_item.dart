@@ -83,7 +83,8 @@ class CustomOrderItem extends StatelessWidget {
           color: Colors.grey.shade100,
           clipBehavior: Clip.antiAlias,
           elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
           child: Row(
             children: [
@@ -92,8 +93,10 @@ class CustomOrderItem extends StatelessWidget {
                 width: 120,
                 margin: const EdgeInsets.all(4),
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Image.network(orderItem.image!, height: 150, fit: BoxFit.fitHeight),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: Image.network(orderItem.image!,
+                    height: 150, fit: BoxFit.fitHeight),
               ),
               Expanded(
                 child: Container(
@@ -104,95 +107,106 @@ class CustomOrderItem extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      Container(
-                        child: Text(
-                          orderItem.label!,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            height: 1.4,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Text(
+                        orderItem.label!,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          height: 1.4,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                        child: Row(
-                          children: [
-                            ValueListenableBuilder(
-                              valueListenable: quantity,
-                              builder: (context, value, child) => Text(
-                                (NumberFormat(',#').format(orderItem.total)).toString(),
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-                              ),
+                      Row(
+                        children: [
+                          ValueListenableBuilder(
+                            valueListenable: quantity,
+                            builder: (context, value, child) => Text(
+                              (NumberFormat(',#').format(orderItem.total))
+                                  .toString(),
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green),
                             ),
-                            const Spacer(),
-                            Container(
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: OutlinedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Colors.amber),
-                                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                        shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                                          ),
-                                        ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 25,
+                                height: 25,
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.amber),
+                                    padding: MaterialStateProperty.all(
+                                        EdgeInsets.zero),
+                                    shape: MaterialStateProperty.all(
+                                      const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100)),
                                       ),
-                                      onPressed: () {
-                                        if (orderItem.quantity != 0) {
-                                          orderItem.quantity -= 1;
-                                          quantity.value -= 1;
-                                          orderItem.total = orderItem.price * quantity.value;
-                                        }
-                                      },
-                                      child: const Icon(Icons.remove, size: 20, color: Colors.white),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ValueListenableBuilder(
-                                      valueListenable: quantity,
-                                      builder: (BuildContext context, dynamic value, Widget? child) {
-                                        return Text(
-                                          '${quantity.value}',
-                                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: OutlinedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Colors.amber),
-                                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                        shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        orderItem.quantity += 1;
-                                        quantity.value += 1;
-                                        orderItem.total = orderItem.price * orderItem.quantity;
-                                      },
-                                      child: const Icon(Icons.add, size: 20, color: Colors.white),
-                                    ),
-                                  ),
-                                ],
+                                  onPressed: () {
+                                    if (orderItem.quantity != 0) {
+                                      orderItem.quantity -= 1;
+                                      quantity.value -= 1;
+                                      orderItem.total =
+                                          orderItem.price * quantity.value;
+                                    }
+                                  },
+                                  child: const Icon(Icons.remove,
+                                      size: 20, color: Colors.white),
+                                ),
                               ),
-                            )
-                          ],
-                        ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ValueListenableBuilder(
+                                  valueListenable: quantity,
+                                  builder: (BuildContext context, dynamic value,
+                                      Widget? child) {
+                                    return Text(
+                                      '${quantity.value}',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 25,
+                                height: 25,
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.amber),
+                                    padding: MaterialStateProperty.all(
+                                        EdgeInsets.zero),
+                                    shape: MaterialStateProperty.all(
+                                      const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100)),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    orderItem.quantity += 1;
+                                    quantity.value += 1;
+                                    orderItem.total =
+                                        orderItem.price * orderItem.quantity;
+                                  },
+                                  child: const Icon(Icons.add,
+                                      size: 20, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       )
                     ],
                   ),

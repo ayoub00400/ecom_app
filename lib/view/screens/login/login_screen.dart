@@ -20,7 +20,6 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          print(state);
           if (state is LoginDone) {
             Navigator.of(context)
                 .popAndPushNamed(RouterManager.homeScreenRoute);
@@ -44,23 +43,22 @@ class LoginScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
-                  Container(
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                              controller: usernameFieldController,
-                              label: 'Username:',
-                              prefixIcon: Icons.email,),
-                          CustomTextField(
-                            controller: passwordFieldController,
-                            label: 'Password:',
-                            prefixIcon: Icons.password,
-                            suffixIcon: Icons.hide_source_rounded,
-                          ),
-                        ],
-                      ),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: usernameFieldController,
+                          label: 'Username:',
+                          prefixIcon: Icons.email,
+                        ),
+                        CustomTextField(
+                          controller: passwordFieldController,
+                          label: 'Password:',
+                          prefixIcon: Icons.password,
+                          suffixIcon: Icons.hide_source_rounded,
+                        ),
+                      ],
                     ),
                   ),
                   BlocBuilder<LoginCubit, LoginState>(
@@ -71,8 +69,9 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<LoginCubit>(context).login(
-                                usernameFieldController.text,
-                                passwordFieldController.text,);
+                              usernameFieldController.text,
+                              passwordFieldController.text,
+                            );
                           }
                         },
                       );

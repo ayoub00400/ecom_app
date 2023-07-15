@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../model/product.dart';
@@ -27,19 +27,18 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeViewLayout() {
     isGrid = !isGrid;
-    print(isGrid);
     emit(HomeLayoutChanged());
   }
 
   searchProduct(String searchText) {
     emit(LoadingProducts());
-    print('911');
     productsList = productsList!
-        .where((element) =>
-            element.title.toLowerCase().contains(searchText.toLowerCase()))
+        .where(
+          (element) =>
+              element.title.toLowerCase().contains(searchText.toLowerCase()),
+        )
         .toList();
 
-    print(productsList);
     emit(LoadingProductsDone());
   }
 }

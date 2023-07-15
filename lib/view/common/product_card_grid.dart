@@ -11,8 +11,10 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(RouterManager.productDetailsScreenRoute,
-            arguments: productDetailes);
+        Navigator.of(context).pushNamed(
+          RouterManager.productDetailsScreenRoute,
+          arguments: productDetailes,
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -34,7 +36,7 @@ class ProductCard extends StatelessWidget {
                       productDetailes.image,
                       fit: BoxFit.contain,
                       errorBuilder: (context, error, stackTrace) {
-                        return Center(
+                        return const Center(
                           child: Icon(Icons.photo, size: 70),
                         );
                       },
@@ -60,8 +62,9 @@ class ProductCard extends StatelessWidget {
                       height: 8,
                     ),
                     Container(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(productDetailes.category)),
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(productDetailes.category),
+                    ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -71,38 +74,39 @@ class ProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.grey),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.orange,
-                            size: 18,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            '${productDetailes.rating.rate} (${productDetailes.rating.count})',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const Spacer(),
-                          FittedBox(
-                            child: Text(
-                              '\$${productDetailes.price}',
-                              style: TextStyle(
-                                  fontSize: 16, color: Colors.green[700]),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.orange,
+                          size: 18,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          '${productDetailes.rating.rate} (${productDetailes.rating.count})',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const Spacer(),
+                        FittedBox(
+                          child: Text(
+                            '\$${productDetailes.price}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green[700],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     //TextButton(onPressed: () {}, child: const Text('+ Add to card'))
                   ],

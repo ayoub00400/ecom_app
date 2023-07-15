@@ -6,8 +6,9 @@ import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
 
 class HomeScreen extends StatelessWidget {
+  final TextEditingController searchFieldController = TextEditingController();
   HomeScreen({super.key});
-  TextEditingController searchFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -46,90 +47,88 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             SizedBox(
-                                width: 320,
-                                child: TextField(
-                                  cursorColor: Colors.black,
-                                  onSubmitted: (value) {
-                                    BlocProvider.of<HomeCubit>(context)
-                                        .searchProduct(value);
-                                  },
-                                  decoration: InputDecoration(
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey.shade400),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    isDense: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.black),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.black),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    hintText: 'Search for item',
-                                    prefixIcon: const Icon(Icons.search),
+                              width: 320,
+                              child: TextField(
+                                cursorColor: Colors.black,
+                                onSubmitted: (value) {
+                                  BlocProvider.of<HomeCubit>(context)
+                                      .searchProduct(value);
+                                },
+                                decoration: InputDecoration(
+                                  hintStyle:
+                                      TextStyle(color: Colors.grey.shade400),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  isDense: true,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  controller: searchFieldController,
-                                )),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: 'Search for item',
+                                  prefixIcon: const Icon(Icons.search),
+                                ),
+                                controller: searchFieldController,
+                              ),
+                            ),
                             const Spacer(),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: GestureDetector(
-                                  onTap: () {
-                                    print('Filtring');
-                                  },
-                                  child: const Icon(Icons.settings)),
+                                onTap: () {
+                                  print('Filtring');
+                                },
+                                child: const Icon(Icons.settings),
+                              ),
                             ),
                           ],
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: RefreshIndicator(
-                            onRefresh: () => searchFieldController.text == ''
-                                ? BlocProvider.of<HomeCubit>(context)
-                                    .loadProduct()
-                                : BlocProvider.of<HomeCubit>(context)
-                                    .searchProduct(searchFieldController.text),
-                            child: BlocProvider.of<HomeCubit>(context).isGrid
-                                ? GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: .75,
-                                      mainAxisSpacing: 1,
-                                      crossAxisSpacing: 0,
-                                    ),
-                                    itemCount:
-                                        BlocProvider.of<HomeCubit>(context)
-                                            .productsList!
-                                            .length,
-                                    itemBuilder: (context, index) {
-                                      return ProductCard(
-                                        productDetailes:
-                                            BlocProvider.of<HomeCubit>(context)
-                                                .productsList![index],
-                                      );
-                                    },
-                                  )
-                                : ListView.builder(
-                                    itemCount:
-                                        BlocProvider.of<HomeCubit>(context)
-                                            .productsList!
-                                            .length,
-                                    itemBuilder: (context, index) {
-                                      return ProductCardList(
-                                        productDetailes:
-                                            BlocProvider.of<HomeCubit>(context)
-                                                .productsList![index],
-                                      );
-                                    },
+                        child: RefreshIndicator(
+                          onRefresh: () => searchFieldController.text == ''
+                              ? BlocProvider.of<HomeCubit>(context)
+                                  .loadProduct()
+                              : BlocProvider.of<HomeCubit>(context)
+                                  .searchProduct(searchFieldController.text),
+                          child: BlocProvider.of<HomeCubit>(context).isGrid
+                              ? GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: .75,
+                                    mainAxisSpacing: 1,
+                                    crossAxisSpacing: 0,
                                   ),
-                          ),
+                                  itemCount: BlocProvider.of<HomeCubit>(context)
+                                      .productsList!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return ProductCard(
+                                      productDetailes:
+                                          BlocProvider.of<HomeCubit>(context)
+                                              .productsList![index],
+                                    );
+                                  },
+                                )
+                              : ListView.builder(
+                                  itemCount: BlocProvider.of<HomeCubit>(context)
+                                      .productsList!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return ProductCardList(
+                                      productDetailes:
+                                          BlocProvider.of<HomeCubit>(context)
+                                              .productsList![index],
+                                    );
+                                  },
+                                ),
                         ),
                       ),
                     ],
@@ -147,8 +146,10 @@ class HomeScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height / 2,
                       ),
                       const Center(
-                          child: Text(
-                              'Gathering data failed, please refresh the page!'))
+                        child: Text(
+                          'Gathering data failed, please refresh the page!',
+                        ),
+                      )
                     ],
                   ),
                 );

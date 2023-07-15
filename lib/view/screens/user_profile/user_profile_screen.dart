@@ -1,4 +1,6 @@
+import 'package:ecom_app/view/screens/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
@@ -51,10 +53,21 @@ class UserProfileScreen extends StatelessWidget {
                     prefixIcon: Icons.translate,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
-                  const CustomListTile(
-                    title: 'Logout',
-                    prefixIcon: Icons.logout_rounded,
-                    suffixIcon: Icons.arrow_forward_ios_rounded,
+                  BlocConsumer<LoginCubit, LoginState>(
+                    listener: (context, state) {
+                      if (state is LogOut) {
+                        Navigator.popAndPushNamed(
+                            context, RouterManager.loginScreenRoute);
+                      }
+                    },
+                    builder: (context, state) {
+                      return CustomListTile(
+                        onTap: () => context.read<LoginCubit>().logOut(),
+                        title: 'Logout',
+                        prefixIcon: Icons.logout_rounded,
+                        suffixIcon: Icons.arrow_forward_ios_rounded,
+                      );
+                    },
                   ),
                 ],
               )

@@ -23,8 +23,13 @@ class UserOrderCubit extends Cubit<UserCartState> {
     }
   }
 
-  deleteAllItems() {
+  void deleteAllItems() {
     orderItems = [];
     emit(OrderRemoverd());
+  }
+
+  void deleteSingleItem(int id) {
+    orderItems.removeWhere((element) => element.id == id);
+    emit(SingleItemRemoved());
   }
 }

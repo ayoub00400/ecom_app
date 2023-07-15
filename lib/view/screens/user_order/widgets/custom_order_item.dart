@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../model/order_item.dart';
+import '../cubit/user_order_cubit.dart';
 
 class CustomOrderItem extends StatelessWidget {
   final OrderItem orderItem;
@@ -19,7 +21,9 @@ class CustomOrderItem extends StatelessWidget {
       onUpdate: (details) {
         dragDirection.value = details.direction;
       },
-      onDismissed: (direction) {},
+      onDismissed: (direction) {
+        context.read<UserOrderCubit>().deleteSingleItem(orderItem.id!);
+      },
       confirmDismiss: (direction) async {
         return await showDialog(
           context: context,

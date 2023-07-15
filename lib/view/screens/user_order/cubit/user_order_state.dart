@@ -12,3 +12,5 @@ class UserCartLoadingDone extends UserCartState {}
 class UserCartLoadingFailed extends UserCartState {}
 
 class OrderRemoverd extends UserCartState {}
+
+class SingleItemRemoved extends UserCartState {}

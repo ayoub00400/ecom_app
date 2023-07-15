@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginDone) {
             Navigator.of(context)
-                .popAndPushNamed(RouterManager.homeScreenRoute);
+                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
           }
         },
         child: SafeArea(

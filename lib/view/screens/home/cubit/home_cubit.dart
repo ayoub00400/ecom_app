@@ -19,15 +19,16 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       if (e is Exception) {
         emit(LoadingProductsError(e.toString()));
+        throw Exception();
       } else {
         emit(LoadingProductsFailed());
+        throw Exception();
       }
     }
   }
 
   changeViewLayout() {
     isGrid = !isGrid;
-    print(isGrid);
     emit(HomeLayoutChanged());
   }
 }

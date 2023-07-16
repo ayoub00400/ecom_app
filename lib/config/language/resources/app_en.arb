@@ -1,1 +1,25 @@
-{}
+{
+   "loginHeader":"Login",
+   "username":"Username:",
+   "password":"Password:",
+   "register":"Register",
+   "ifNotUser":"Don't have account ?",
+   "loginButton":"Login",
+   "loginFailed":"Login Failed!!",
+   "loginFailedContent":"Wrong username or password please try again.",
+   "hi":"Hi",
+   "cart":"Cart",
+   "showMore":"Show More",
+   "showLess":"Show Less",
+   "email":"Email",
+   "address":"Address",
+   "zipCode":"Zip Code";
+   "phoneNumber":"Phone Number",
+   "save":"Save",
+   "settings":"Settings",
+   "language":"Language",
+   "logout":"Logout",
+   "checkout":"checkout",
+   "fetchDataFailed":"Gathering data failed, please refresh the page!",
+   "emptyData":"Empty section"
+}

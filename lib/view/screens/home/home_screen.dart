@@ -41,15 +41,15 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.amber.withOpacity(.8),
                           height: 60,
                           width: double.maxFinite,
-                          child: Row(children: [
+                          child: const Row(children: [
                             SizedBox(
                                 width: 320,
                                 child: SearchBar(
                                   leading: Icon(Icons.search),
-                                )),
+                                ),),
                             Spacer(),
                             Icon(Icons.settings)
-                          ]),
+                          ],),
                         ),
                         Expanded(
                           child: Container(

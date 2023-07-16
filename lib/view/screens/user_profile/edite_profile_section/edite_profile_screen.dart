@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants.dart';
-import '../../common/custom_button.dart';
-import '../login/widgets/custom_text_field.dart';
+import '../../../../utils/constants.dart';
+import '../../../common/custom_button.dart';
+import '../../login/widgets/custom_text_field.dart';
 
 class UserProfileDetailsScreen extends StatelessWidget {
   const UserProfileDetailsScreen({super.key});
@@ -32,8 +32,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                     children: [
                       const Text(
                         'Marting Williams',
-                        style: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                       CustomButton(
                         onPressed: () {},
@@ -60,8 +59,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
-                  CustomTextField(
-                      label: 'Address', prefixIcon: Icons.location_city),
+                  CustomTextField(label: 'Address', prefixIcon: Icons.location_city),
                   SizedBox(
                     height: 8,
                   ),
@@ -72,8 +70,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
-                  CustomTextField(
-                      label: 'Phone Number', prefixIcon: Icons.phone),
+                  CustomTextField(label: 'Phone Number', prefixIcon: Icons.phone),
                 ],
               ),
             ),

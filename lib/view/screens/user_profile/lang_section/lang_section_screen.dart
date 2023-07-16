@@ -7,9 +7,7 @@ class LangSectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: const Center(child: Text('Lang section')),
-      ),
+      body: const Center(child: Text('Lang section')),
     );
   }
 }

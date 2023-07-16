@@ -1,11 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../model/order.dart';
 import '../../../../model/order_item.dart';
 import '../../../../utils/constants.dart';
 
-part 'user_order_state.dart';
+import 'user_order_state.dart';
 
 class UserOrderCubit extends Cubit<UserCartState> {
   List<OrderItem> orderItems = [];

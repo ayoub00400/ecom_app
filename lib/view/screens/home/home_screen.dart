@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
+import 'cubit/home_state.dart';
 import 'widgets/custom_refreshable_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -75,9 +76,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
-                        onTap: () {
-                          print('Filtring');
-                        },
+                        onTap: () {},
                         child: const Icon(Icons.settings),
                       ),
                     ),

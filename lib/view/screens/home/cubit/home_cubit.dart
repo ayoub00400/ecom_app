@@ -1,10 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../model/product.dart';
 import '../../../../utils/constants.dart';
 
-part 'home_state.dart';
+import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   bool isGrid = true;
@@ -35,13 +34,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void searchProduct(String searchText) {
     resultOfSearch = productsList!;
-    print('208 Pegeot');
+
     emit(LoadingProducts());
     resultOfSearch = productsList!
         .where(
-          (element) => element.title
-              .toLowerCase()
-              .contains(searchText.toLowerCase().trim()),
+          (element) => element.title.toLowerCase().contains(searchText.toLowerCase().trim()),
         )
         .toList();
     resultOfSearch = resultOfSearch.isEmpty ? [] : resultOfSearch;

@@ -1,6 +1,3 @@
-part of 'user_order_cubit.dart';
-
-@immutable
 abstract class UserCartState {}
 
 class UserCartInitial extends UserCartState {}

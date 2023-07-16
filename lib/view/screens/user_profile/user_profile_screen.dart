@@ -28,9 +28,14 @@ class UserProfileScreen extends StatelessWidget {
                   backgroundImage: AssetImage(AssetManager.profileImg),
                 ),
               ),
-              const Text(
-                'Marting Williams',
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  return Text(
+                    '${context.watch<LoginCubit>().userData!.name.firstname} ${context.watch<LoginCubit>().userData!.name.lastname}',
+                    style: const TextStyle(
+                        fontSize: 21, fontWeight: FontWeight.bold),
+                  );
+                },
               ),
               const SizedBox(
                 height: 36,

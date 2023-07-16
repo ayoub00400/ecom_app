@@ -36,4 +36,23 @@ class UserRepoImp implements IUserRepository {
       throw Exception(e.toString());
     }
   }
+
+  @override
+  Future<bool> updateUserDetails(int userId, Map<String, dynamic> body) async {
+    try {
+      var response = await put(
+        Uri.parse(
+          '${ApiHelper.userData}/$userId',
+        ),
+        body: body,
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('bad request');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

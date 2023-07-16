@@ -1,4 +1,7 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert';
+
+import 'package:bloc/bloc.dart';
+import 'package:ecom_app/model/user.dart';
 import '../../../../utils/prefs.dart';
 
 import '../../../../utils/constants.dart';
@@ -7,18 +10,24 @@ import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   String? token;
+  User? userData;
   LoginCubit() : super(LoginInitial());
-  void checkLoginStatus() async {
+  void getLoginCredantials() async {
     token = Prefs.getString(SPKeys.userToken);
+    userData = User.fromJson(jsonDecode(Prefs.getString(SPKeys.userData)!));
   }
 
   void login(String userName, String password) async {
     try {
       emit(LoginLoading());
-      var token = await userApiRepo.authUser(userName, password);
+      token = await userApiRepo.authUser(userName, password);
+      userData = await userApiRepo.getUser(1);
 
-      Prefs.setString(SPKeys.userToken, token);
-      emit(LoginDone());
+      if (token != null && userData != null) {
+        Prefs.setString(SPKeys.userToken, token!);
+        Prefs.setString(SPKeys.userData, userData!.toJson());
+        emit(LoginDone());
+      }
     } catch (e) {
       if (e is Exception) {
         emit(LoginError('login error please try later.'));

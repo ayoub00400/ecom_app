@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit()..checkLoginStatus(),
+      create: (context) => LoginCubit()..getLoginCredantials(),
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
           return MaterialApp(
@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
             title: 'Ecomme App',
             themeMode: ThemeMode.light,
             theme: lightThemeData,
-            initialRoute: BlocProvider.of<LoginCubit>(context).token != null
+            initialRoute: (BlocProvider.of<LoginCubit>(context).token != null &&
+                    BlocProvider.of<LoginCubit>(context).userData != null)
                 ? RouterManager.homeLayoutScreenRoute
                 : RouterManager.loginScreenRoute,
             routes: RouterManager.routes,

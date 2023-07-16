@@ -46,4 +46,5 @@ class Prefs {
 class SPKeys {
   static const language = 'lang';
   static const userToken = 'token';
+  static const userData = 'userData';
 }

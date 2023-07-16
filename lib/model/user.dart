@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   Address address;
   int id;
@@ -30,7 +32,7 @@ class User {
         v: json['__v'],
       );
 
-  Map<String, dynamic> toJson() => {
+  String toJson() => jsonEncode({
         'address': address.toJson(),
         'id': id,
         'email': email,
@@ -39,7 +41,7 @@ class User {
         'name': name.toJson(),
         'phone': phone,
         '__v': v,
-      };
+      });
 }
 
 class Address {

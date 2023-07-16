@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
+import '../login/cubit/login_state.dart';
 import 'widgets/custom_list_tile.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -37,18 +38,19 @@ class UserProfileScreen extends StatelessWidget {
               Column(
                 children: [
                   CustomListTile(
-                    onTap: () => Navigator.of(context)
-                        .pushNamed(RouterManager.userProfileDetailsScreenRoute),
+                    onTap: () => Navigator.of(context).pushNamed(RouterManager.userProfileDetailsScreenRoute),
                     title: 'Edite Profile',
                     prefixIcon: Icons.person,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
-                  const CustomListTile(
+                  CustomListTile(
+                    onTap: () => Navigator.of(context).pushNamed(RouterManager.settingsSectionScreenRoute),
                     title: 'Settings',
                     prefixIcon: Icons.settings,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
-                  const CustomListTile(
+                  CustomListTile(
+                    onTap: () => Navigator.of(context).pushNamed(RouterManager.langSectionScreenRoute),
                     title: 'Language',
                     prefixIcon: Icons.translate,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
@@ -56,8 +58,7 @@ class UserProfileScreen extends StatelessWidget {
                   BlocConsumer<LoginCubit, LoginState>(
                     listener: (context, state) {
                       if (state is LogOut) {
-                        Navigator.popAndPushNamed(
-                            context, RouterManager.loginScreenRoute);
+                        Navigator.popAndPushNamed(context, RouterManager.loginScreenRoute);
                       }
                     },
                     builder: (context, state) {

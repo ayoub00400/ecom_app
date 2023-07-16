@@ -6,6 +6,7 @@ import 'config/routing/route_manager.dart';
 import 'config/theme/theme.dart';
 import 'utils/prefs.dart';
 import 'view/screens/login/cubit/login_cubit.dart';
+import 'view/screens/login/cubit/login_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
               Locale('en'), // English
               Locale('ar'), // Arabic
             ],
-            // locale: Locale('en'),
+            locale: const Locale('en'),
           );
         },
       ),

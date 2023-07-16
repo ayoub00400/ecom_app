@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
+import 'cubit/home_state.dart';
 import 'widgets/custom_refreshable_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,7 +35,6 @@ class HomeScreen extends StatelessWidget {
                   vertical: 8,
                 ),
                 color: Colors.amber.withOpacity(.8),
-                height: 60,
                 width: double.maxFinite,
                 child: Row(
                   children: [
@@ -46,11 +46,9 @@ class HomeScreen extends StatelessWidget {
                             cursorColor: Colors.black,
                             onChanged: (value) {
                               if (value == '') {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .loadProduct();
+                                BlocProvider.of<HomeCubit>(context).loadProduct();
                               } else {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .searchProduct(value);
+                                BlocProvider.of<HomeCubit>(context).searchProduct(value);
                               }
                             },
                             decoration: InputDecoration(
@@ -59,13 +57,11 @@ class HomeScreen extends StatelessWidget {
                               fillColor: Colors.white,
                               isDense: true,
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                                borderSide: const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
+                                borderSide: const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               hintText: 'Search for item',
@@ -80,103 +76,79 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
-                        onTap: () {
-                          print('Filtring');
-                        },
+                        onTap: () {},
                         child: const Icon(Icons.settings),
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                child: BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    if (state is LoadingProducts) {
-                      return const Expanded(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                    if (state is LoadingProductsDone ||
-                        state is HomeLayoutChanged) {
-                      return BlocProvider.of<HomeCubit>(context)
-                              .resultOfSearch
-                              .isEmpty
-                          ? Expanded(
-                              child: CustomRereshableBodyList(
-                                onRefresh: () => BlocProvider.of<HomeCubit>(
-                                        context)
-                                    .searchProduct(searchFieldController.text),
-                                text:
-                                    'Seems  Empty ,  there is no data to show ',
-                              ),
-                            )
-                          : Expanded(
-                              child: RefreshIndicator(
-                                onRefresh: () async {
-                                  searchFieldController.text == ''
-                                      ? BlocProvider.of<HomeCubit>(context)
-                                          .loadProduct()
-                                      : BlocProvider.of<HomeCubit>(context)
-                                          .searchProduct(
-                                          searchFieldController.text,
-                                        );
-                                },
-                                child: BlocProvider.of<HomeCubit>(context)
-                                        .isGrid
-                                    ? GridView.builder(
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: .75,
-                                          mainAxisSpacing: 1,
-                                          crossAxisSpacing: 0,
-                                        ),
-                                        itemCount:
-                                            BlocProvider.of<HomeCubit>(context)
-                                                .resultOfSearch
-                                                .length,
-                                        itemBuilder: (context, index) {
-                                          return ProductCard(
-                                            productDetailes:
-                                                BlocProvider.of<HomeCubit>(
-                                              context,
-                                            ).resultOfSearch[index],
-                                          );
-                                        },
-                                      )
-                                    : ListView.builder(
-                                        itemCount:
-                                            BlocProvider.of<HomeCubit>(context)
-                                                .resultOfSearch
-                                                .length,
-                                        itemBuilder: (context, index) {
-                                          return ProductCardList(
-                                            productDetailes:
-                                                BlocProvider.of<HomeCubit>(
-                                              context,
-                                            ).resultOfSearch[index],
-                                          );
-                                        },
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  if (state is LoadingProducts) {
+                    return const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  if (state is LoadingProductsDone || state is HomeLayoutChanged) {
+                    return BlocProvider.of<HomeCubit>(context).resultOfSearch.isEmpty
+                        ? Expanded(
+                            child: CustomRereshableBodyList(
+                              onRefresh: () =>
+                                  BlocProvider.of<HomeCubit>(context).searchProduct(searchFieldController.text),
+                              text: 'Seems  Empty ,  there is no data to show ',
+                            ),
+                          )
+                        : Expanded(
+                            child: RefreshIndicator(
+                              onRefresh: () async {
+                                searchFieldController.text == ''
+                                    ? BlocProvider.of<HomeCubit>(context).loadProduct()
+                                    : BlocProvider.of<HomeCubit>(context).searchProduct(
+                                        searchFieldController.text,
+                                      );
+                              },
+                              child: BlocProvider.of<HomeCubit>(context).isGrid
+                                  ? GridView.builder(
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: .75,
+                                        mainAxisSpacing: 1,
+                                        crossAxisSpacing: 0,
                                       ),
-                              ),
-                            );
-                    }
-                    if (state is LoadingProductsFailed ||
-                        state is LoadingProductsError) {
-                      return CustomRereshableBodyList(
-                        onRefresh: () =>
-                            BlocProvider.of<HomeCubit>(context).loadProduct(),
-                        text: 'Gathering data failed, please refresh the page!',
-                      );
-                    }
+                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductCard(
+                                          productDetailes: BlocProvider.of<HomeCubit>(
+                                            context,
+                                          ).resultOfSearch[index],
+                                        );
+                                      },
+                                    )
+                                  : ListView.builder(
+                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductCardList(
+                                          productDetailes: BlocProvider.of<HomeCubit>(
+                                            context,
+                                          ).resultOfSearch[index],
+                                        );
+                                      },
+                                    ),
+                            ),
+                          );
+                  }
+                  if (state is LoadingProductsFailed || state is LoadingProductsError) {
+                    return CustomRereshableBodyList(
+                      onRefresh: () => BlocProvider.of<HomeCubit>(context).loadProduct(),
+                      text: 'Gathering data failed, please refresh the page!',
+                    );
+                  }
 
-                    return const Center(
-                        child: Text('Oppps try to relunch the app'));
-                  },
-                ),
+                  return const Center(child: Text('Oppps try to relunch the app'));
+                },
               ),
             ],
           ),

@@ -100,7 +100,7 @@ class CustomOrderItem extends StatelessWidget {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 child: Image.network(orderItem.image!,
-                    height: 150, fit: BoxFit.fitHeight),
+                    height: 150, fit: BoxFit.fitHeight,),
               ),
               Expanded(
                 child: Container(
@@ -133,7 +133,7 @@ class CustomOrderItem extends StatelessWidget {
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green),
+                                  color: Colors.green,),
                             ),
                           ),
                           const Spacer(),
@@ -147,11 +147,11 @@ class CustomOrderItem extends StatelessWidget {
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
-                                        EdgeInsets.zero),
+                                        EdgeInsets.zero,),
                                     shape: MaterialStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(100)),
+                                            Radius.circular(100),),
                                       ),
                                     ),
                                   ),
@@ -164,7 +164,7 @@ class CustomOrderItem extends StatelessWidget {
                                     }
                                   },
                                   child: const Icon(Icons.remove,
-                                      size: 20, color: Colors.white),
+                                      size: 20, color: Colors.white,),
                                 ),
                               ),
                               Padding(
@@ -172,12 +172,12 @@ class CustomOrderItem extends StatelessWidget {
                                 child: ValueListenableBuilder(
                                   valueListenable: quantity,
                                   builder: (BuildContext context, dynamic value,
-                                      Widget? child) {
+                                      Widget? child,) {
                                     return Text(
                                       '${quantity.value}',
                                       style: const TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,),
                                     );
                                   },
                                 ),
@@ -190,11 +190,11 @@ class CustomOrderItem extends StatelessWidget {
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
-                                        EdgeInsets.zero),
+                                        EdgeInsets.zero,),
                                     shape: MaterialStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(100)),
+                                            Radius.circular(100),),
                                       ),
                                     ),
                                   ),
@@ -205,7 +205,7 @@ class CustomOrderItem extends StatelessWidget {
                                         orderItem.price * orderItem.quantity;
                                   },
                                   child: const Icon(Icons.add,
-                                      size: 20, color: Colors.white),
+                                      size: 20, color: Colors.white,),
                                 ),
                               ),
                             ],

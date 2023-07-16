@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../common/custom_button.dart';
 import 'cubit/user_order_cubit.dart';
+import 'cubit/user_order_state.dart';
 import 'widgets/custom_order_item.dart';
 
 class UserOrderScreen extends StatelessWidget {
@@ -23,7 +24,8 @@ class UserOrderScreen extends StatelessWidget {
               BlocBuilder<UserOrderCubit, UserCartState>(
                 builder: (context, state) {
                   return Text(
-                      '(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
+                    '(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})',
+                  );
                 },
               )
             ],
@@ -32,8 +34,7 @@ class UserOrderScreen extends StatelessWidget {
             BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () =>
-                      BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
+                  onTap: () => BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Icon(Icons.delete, color: Colors.red),
@@ -48,9 +49,7 @@ class UserOrderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
-                if (BlocProvider.of<UserOrderCubit>(context)
-                    .orderItems
-                    .isEmpty) {
+                if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) {
                   return const Center(
                     child: Text('Empty section'),
                   );
@@ -68,13 +67,10 @@ class UserOrderScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        itemCount: BlocProvider.of<UserOrderCubit>(context)
-                            .orderItems
-                            .length,
+                        itemCount: BlocProvider.of<UserOrderCubit>(context).orderItems.length,
                         itemBuilder: (context, index) {
                           return CustomOrderItem(
-                            orderItem: BlocProvider.of<UserOrderCubit>(context)
-                                .orderItems[index],
+                            orderItem: BlocProvider.of<UserOrderCubit>(context).orderItems[index],
                           );
                         },
                       ),
@@ -87,8 +83,7 @@ class UserOrderScreen extends StatelessWidget {
                         labelColor: Colors.black,
                         height: 45,
                         onPressed: () {},
-                        buttonLabel:
-                            'CHECKOUT (\$ ${BlocProvider.of<UserOrderCubit>(context).total.toString()} )',
+                        buttonLabel: 'CHECKOUT (\$ ${BlocProvider.of<UserOrderCubit>(context).total.toString()} )',
                         buttColor: Colors.amber,
                       ),
                     )

@@ -5,13 +5,12 @@ import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
 import '../../common/custom_button.dart';
 import 'cubit/login_cubit.dart';
+import 'cubit/login_state.dart';
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameFieldController =
-      TextEditingController(text: 'johnd');
-  final TextEditingController passwordFieldController =
-      TextEditingController(text: 'm38rmF\$');
+  final TextEditingController usernameFieldController = TextEditingController(text: 'johnd');
+  final TextEditingController passwordFieldController = TextEditingController(text: 'm38rmF\$');
   final formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
@@ -21,8 +20,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginDone) {
-            Navigator.of(context)
-                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
+            Navigator.of(context).popAndPushNamed(RouterManager.homeLayoutScreenRoute);
           }
         },
         child: SafeArea(

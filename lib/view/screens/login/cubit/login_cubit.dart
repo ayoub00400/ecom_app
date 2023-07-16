@@ -1,17 +1,15 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/prefs.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../utils/constants.dart';
 
-part 'login_state.dart';
+import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   String? token;
   LoginCubit() : super(LoginInitial());
   void checkLoginStatus() async {
     token = Prefs.getString(SPKeys.userToken);
-    print(token);
   }
 
   void login(String userName, String password) async {
@@ -31,7 +29,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> logOut() async {
-    print('im loging out right now');
     await Prefs.clear();
     emit(LogOut());
   }

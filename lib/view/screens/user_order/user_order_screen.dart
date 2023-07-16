@@ -23,7 +23,7 @@ class UserOrderScreen extends StatelessWidget {
               BlocBuilder<UserOrderCubit, UserCartState>(
                 builder: (context, state) {
                   return Text(
-                      '(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
+                      '(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})',);
                 },
               )
             ],

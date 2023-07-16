@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
-
 class OrderItem {
   final int? id;
   final String? label;
@@ -48,16 +46,4 @@ class OrderItem {
   ///
   /// Converts [OrderItem] to a JSON string.
   String toJson() => json.encode(toMap());
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    if (other is! OrderItem) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
-    return mapEquals(other.toMap(), toMap());
-  }
-
-  @override
-  int get hashCode =>
-      id.hashCode ^ label.hashCode ^ quantity.hashCode ^ price.hashCode ^ total.hashCode ^ image.hashCode;
 }

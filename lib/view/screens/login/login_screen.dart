@@ -18,9 +18,13 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          print(state);
           if (state is LoginDone) {
+<<<<<<< HEAD
             Navigator.of(context).popAndPushNamed(RouterManager.homeScreenRoute);
+=======
+            Navigator.of(context)
+                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
+>>>>>>> a54fa2ce59a8b1e3bdddce7474b32efb35c3e30f
           }
         },
         child: SafeArea(
@@ -41,6 +45,7 @@ class LoginScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
+<<<<<<< HEAD
                   Container(
                     child: Form(
                       key: formKey,
@@ -59,6 +64,24 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+=======
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: usernameFieldController,
+                          label: 'Username:',
+                          prefixIcon: Icons.email,
+                        ),
+                        CustomTextField(
+                          controller: passwordFieldController,
+                          label: 'Password:',
+                          prefixIcon: Icons.password,
+                          suffixIcon: Icons.hide_source_rounded,
+                        ),
+                      ],
+>>>>>>> a54fa2ce59a8b1e3bdddce7474b32efb35c3e30f
                     ),
                   ),
                   BlocBuilder<LoginCubit, LoginState>(

@@ -13,18 +13,19 @@ class RouterManager {
   static const String userProfileScreenRoute = '/user_profile_screen';
   static const String userCartScreenRoute = '/cart_screen';
   static const String productDetailsScreenRoute = '/product_details_screen';
-  static const String userProfileDetailsScreenRoute = '/user_profile_details_screen';
+  static const String userProfileDetailsScreenRoute =
+      '/user_profile_details_screen';
 
   static generateRoute(String routeString) {
     switch (routeString) {
       case loginScreenRoute:
         return LoginScreen();
       case homeScreenRoute:
-        return const HomeScreen();
+        return HomeScreen();
       case userProfileScreenRoute:
         return const UserProfileScreen();
       case productDetailsScreenRoute:
-        return const HomeScreen();
+        return HomeScreen();
       case userCartScreenRoute:
         return const UserOrderScreen();
       case userProfileDetailsScreenRoute:
@@ -38,10 +39,11 @@ class RouterManager {
   static final routes = {
     loginScreenRoute: (context) => LoginScreen(),
     homeLayoutScreenRoute: (context) => const HomeLayoutScreen(),
-    homeScreenRoute: (context) => const HomeScreen(),
+    homeScreenRoute: (context) => HomeScreen(),
     userCartScreenRoute: (context) => const UserOrderScreen(),
     userProfileScreenRoute: (context) => LoginScreen(),
     productDetailsScreenRoute: (context) => const ProductDetailsScreen(),
-    userProfileDetailsScreenRoute: (context) => const UserProfileDetailsScreen(),
+    userProfileDetailsScreenRoute: (context) =>
+        const UserProfileDetailsScreen(),
   };
 }

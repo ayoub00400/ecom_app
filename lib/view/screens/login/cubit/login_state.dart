@@ -19,3 +19,5 @@ class LoginError extends LoginState {
 class UserAlreadyLoggedIn extends LoginState {}
 
 class UserNotLoggedInYet extends LoginState {}
+
+class LogOut extends LoginState {}

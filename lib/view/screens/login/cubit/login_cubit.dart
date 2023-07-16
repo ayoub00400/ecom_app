@@ -29,4 +29,10 @@ class LoginCubit extends Cubit<LoginState> {
       }
     }
   }
+
+  Future<void> logOut() async {
+    print('im loging out right now');
+    await Prefs.clear();
+    emit(LogOut());
+  }
 }

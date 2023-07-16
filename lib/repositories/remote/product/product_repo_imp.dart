@@ -12,15 +12,25 @@ class ProductRepoImp implements IProductRepository {
     try {
       Response response = await get(Uri.parse(ApiHelper.allProducts));
 
-      List<dynamic> decodedResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        List<dynamic> decodedResponse = jsonDecode(response.body);
 
-      List<Product> productsList =
-          decodedResponse.map((product) => Product.fromJson(product)).toList();
-      print(productsList);
+        List<Product> productsList = decodedResponse
+            .map((product) => Product.fromJson(product))
+            .toList();
 
-      return productsList;
-    } catch (e) {
-      throw Exception(e.toString());
+        return productsList;
+      } else {
+        throw Exception('erro happend when fatching data');
+      }
+    } catch (error) {
+      throw Exception(error.toString());
     }
+  }
+
+  @override
+  Future<List<String>> getAllProductsCategories() {
+    // TODO: implement getAllProductsCategories
+    throw UnimplementedError();
   }
 }

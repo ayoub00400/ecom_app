@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../config/routing/route_manager.dart';
 import '../../model/product.dart';
@@ -23,8 +24,7 @@ class ProductCardList extends StatelessWidget {
         child: Card(
           elevation: 5,
           clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [
               Flexible(
@@ -43,8 +43,7 @@ class ProductCardList extends StatelessWidget {
               Flexible(
                 child: Container(
                   padding: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  decoration:
-                      BoxDecoration(color: Colors.white.withOpacity(.5)),
+                  decoration: BoxDecoration(color: Colors.white.withOpacity(.5)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -89,7 +88,10 @@ class ProductCardList extends StatelessWidget {
                           const Spacer(),
                           FittedBox(
                             child: Text(
-                              '\$${productDetailes.price}',
+                              NumberFormat.currency(
+                                locale: 'fr',
+                                symbol: '',
+                              ).format(productDetailes.price),
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.green[700],

@@ -1,3 +1,4 @@
+import 'package:ecom_app/utils/extensions.dart';
 import 'package:ecom_app/view/screens/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +33,7 @@ class UserProfileScreen extends StatelessWidget {
                 builder: (context, state) {
                   return Text(
                     '${context.watch<LoginCubit>().userData!.name.firstname} ${context.watch<LoginCubit>().userData!.name.lastname}',
-                    style: const TextStyle(
-                        fontSize: 21, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   );
                 },
               ),
@@ -44,19 +44,19 @@ class UserProfileScreen extends StatelessWidget {
                 children: [
                   CustomListTile(
                     onTap: () => Navigator.of(context).pushNamed(RouterManager.userProfileDetailsScreenRoute),
-                    title: 'Edite Profile',
+                    title: context.loc.editeProfile,
                     prefixIcon: Icons.person,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
                   CustomListTile(
                     onTap: () => Navigator.of(context).pushNamed(RouterManager.settingsSectionScreenRoute),
-                    title: 'Settings',
+                    title: context.loc.settings,
                     prefixIcon: Icons.settings,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
                   CustomListTile(
                     onTap: () => Navigator.of(context).pushNamed(RouterManager.langSectionScreenRoute),
-                    title: 'Language',
+                    title: context.loc.language,
                     prefixIcon: Icons.translate,
                     suffixIcon: Icons.arrow_forward_ios_rounded,
                   ),
@@ -69,7 +69,7 @@ class UserProfileScreen extends StatelessWidget {
                     builder: (context, state) {
                       return CustomListTile(
                         onTap: () => context.read<LoginCubit>().logOut(),
-                        title: 'Logout',
+                        title: context.loc.logout,
                         prefixIcon: Icons.logout_rounded,
                         suffixIcon: Icons.arrow_forward_ios_rounded,
                       );

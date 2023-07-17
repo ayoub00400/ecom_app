@@ -1,3 +1,4 @@
+import 'package:ecom_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,12 +35,10 @@ class UserOrderScreen extends StatelessWidget {
             BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () =>
-                      BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
+                  onTap: () => BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child:
-                        Icon(Icons.delete_outline, size: 30, color: Colors.red),
+                    child: Icon(Icons.delete_outline, size: 30, color: Colors.red),
                   ),
                 );
               },
@@ -51,19 +50,17 @@ class UserOrderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
-                if (BlocProvider.of<UserOrderCubit>(context)
-                    .orderItems
-                    .isEmpty) {
-                  return const Center(
-                    child: Text('Empty section'),
+                if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) {
+                  return Center(
+                    child: Text(context.loc.emptyData),
                   );
                 }
                 if (state is UserCartLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (state is UserCartLoadingFailed) {
-                  return const Center(
-                    child: Text('Failed when fetching cart'),
+                  return Center(
+                    child: Text(context.loc.fetchDataFailed),
                   );
                 }
 
@@ -71,13 +68,10 @@ class UserOrderScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        itemCount: BlocProvider.of<UserOrderCubit>(context)
-                            .orderItems
-                            .length,
+                        itemCount: BlocProvider.of<UserOrderCubit>(context).orderItems.length,
                         itemBuilder: (context, index) {
                           return CustomOrderItem(
-                            orderItem: BlocProvider.of<UserOrderCubit>(context)
-                                .orderItems[index],
+                            orderItem: BlocProvider.of<UserOrderCubit>(context).orderItems[index],
                           );
                         },
                       ),
@@ -91,7 +85,7 @@ class UserOrderScreen extends StatelessWidget {
                         height: 45,
                         onPressed: () {},
                         buttonLabel:
-                            'CHECKOUT (${BlocProvider.of<UserOrderCubit>(context).total.toString()} \$ )',
+                            '${context.loc.checkout.toUpperCase()} (${BlocProvider.of<UserOrderCubit>(context).total.toString()} \$ )',
                         buttColor: Colors.amber,
                       ),
                     )

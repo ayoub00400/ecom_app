@@ -1,3 +1,4 @@
+import 'package:ecom_app/utils/extensions.dart';
 import 'package:ecom_app/view/common/custom_button.dart';
 import 'package:ecom_app/view/screens/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserDetailsCubit()
-        ..initUserData(context.read<LoginCubit>().userData!),
+      create: (context) => UserDetailsCubit()..initUserData(context.read<LoginCubit>().userData!),
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -38,8 +38,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       builder: (context, state) {
                         return Text(
                           '${context.watch<LoginCubit>().userData!.name.firstname} ${context.watch<LoginCubit>().userData!.name.lastname}',
-                          style: TextStyle(
-                              fontSize: 21, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                         );
                       },
                     ),
@@ -47,56 +46,50 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 36,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().emailController,
-                        label: 'Email',
+                        controller: context.read<UserDetailsCubit>().emailController,
+                        label: context.loc.email,
                         prefixIcon: Icons.email),
                     const SizedBox(
                       height: 8,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().usernameController,
-                        label: 'Username',
+                        controller: context.read<UserDetailsCubit>().usernameController,
+                        label: context.loc.username,
                         prefixIcon: Icons.person),
                     const SizedBox(
                       height: 8,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().fullNameController,
-                        label: 'Fullname',
+                        controller: context.read<UserDetailsCubit>().fullNameController,
+                        label: context.loc.fullName,
                         prefixIcon: Icons.person),
                     const SizedBox(
                       height: 8,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().addressController,
-                        label: 'Address',
+                        controller: context.read<UserDetailsCubit>().addressController,
+                        label: context.loc.address,
                         prefixIcon: Icons.location_city),
                     const SizedBox(
                       height: 8,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().zipCodeController,
-                        label: 'Zip Code',
+                        controller: context.read<UserDetailsCubit>().zipCodeController,
+                        label: context.loc.zipCode,
                         prefixIcon: Icons.pin),
                     const SizedBox(
                       height: 8,
                     ),
                     CustomTextField(
-                        controller:
-                            context.read<UserDetailsCubit>().phoneController,
-                        label: 'Phone Number',
+                        controller: context.read<UserDetailsCubit>().phoneController,
+                        label: context.loc.phoneNumber,
                         prefixIcon: Icons.phone),
                     const SizedBox(
                       height: 16,
                     ),
                     CustomButton(
                       width: 300,
-                      buttonLabel: 'Save',
+                      buttonLabel: context.loc.save,
                       onPressed: () {
                         context.read<UserDetailsCubit>().saveDetails();
                       },

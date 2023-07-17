@@ -1,3 +1,4 @@
+import 'package:ecom_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,10 +10,8 @@ import 'cubit/login_state.dart';
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameFieldController =
-      TextEditingController(text: 'johnd');
-  final TextEditingController passwordFieldController =
-      TextEditingController(text: 'm38rmF\$');
+  final TextEditingController usernameFieldController = TextEditingController(text: 'johnd');
+  final TextEditingController passwordFieldController = TextEditingController(text: 'm38rmF\$');
   final formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
@@ -22,8 +21,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginDone) {
-            Navigator.of(context)
-                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
+            Navigator.of(context).popAndPushNamed(RouterManager.homeLayoutScreenRoute);
           }
         },
         child: SafeArea(
@@ -40,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8),
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      'Login',
+                      context.loc.loginHeader,
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
@@ -50,12 +48,12 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         CustomTextField(
                           controller: usernameFieldController,
-                          label: 'Username:',
+                          label: context.loc.username,
                           prefixIcon: Icons.email,
                         ),
                         CustomTextField(
                           controller: passwordFieldController,
-                          label: 'Password:',
+                          label: context.loc.password,
                           prefixIcon: Icons.password,
                           suffixIcon: Icons.hide_source_rounded,
                         ),
@@ -66,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                     builder: (context, state) {
                       return CustomButton(
                         buttColor: Colors.amber,
-                        buttonLabel: 'Login',
+                        buttonLabel: context.loc.loginButton,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<LoginCubit>(context).login(
@@ -84,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'if you are new here  ',
+                          context.loc.ifNotUser,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
@@ -92,9 +90,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {},
-                          child: const Text(
-                            'Register.',
-                            style: TextStyle(fontSize: 18, color: Colors.amber),
+                          child: Text(
+                            context.loc.register,
+                            style: const TextStyle(fontSize: 18, color: Colors.amber),
                           ),
                         ),
                       ],

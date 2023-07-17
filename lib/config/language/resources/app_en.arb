@@ -21,5 +21,7 @@
    "logout":"Logout",
    "checkout":"checkout",
    "fetchDataFailed":"Gathering data failed, please refresh the page!",
-   "emptyData":"Empty section"
+   "emptyData":"Empty section",
+   "editeProfile":"Edite Profile",
+   "fullName":"FullName:"
 }

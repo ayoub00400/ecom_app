@@ -87,8 +87,7 @@ class CustomOrderItem extends StatelessWidget {
           color: Colors.grey.shade100,
           clipBehavior: Clip.antiAlias,
           elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
           child: Row(
             children: [
@@ -97,10 +96,12 @@ class CustomOrderItem extends StatelessWidget {
                 width: 120,
                 margin: const EdgeInsets.all(4),
                 clipBehavior: Clip.antiAlias,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Image.network(orderItem.image!,
-                    height: 150, fit: BoxFit.fitHeight,),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: Image.network(
+                  orderItem.image!,
+                  height: 150,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
               Expanded(
                 child: Container(
@@ -128,12 +129,16 @@ class CustomOrderItem extends StatelessWidget {
                           ValueListenableBuilder(
                             valueListenable: quantity,
                             builder: (context, value, child) => Text(
-                              (NumberFormat(',#').format(orderItem.total))
-                                  .toString(),
+                              // (NumberFormat(',#').format(orderItem.total)).toString(),
+                              NumberFormat.currency(
+                                locale: 'fr',
+                                symbol: '',
+                              ).format(orderItem.total),
                               style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
                             ),
                           ),
                           const Spacer(),
@@ -144,14 +149,15 @@ class CustomOrderItem extends StatelessWidget {
                                 height: 25,
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.amber),
+                                    backgroundColor: MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
-                                        EdgeInsets.zero,),
+                                      EdgeInsets.zero,
+                                    ),
                                     shape: MaterialStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(100),),
+                                          Radius.circular(100),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -159,25 +165,31 @@ class CustomOrderItem extends StatelessWidget {
                                     if (orderItem.quantity != 0) {
                                       orderItem.quantity -= 1;
                                       quantity.value -= 1;
-                                      orderItem.total =
-                                          orderItem.price * quantity.value;
+                                      orderItem.total = orderItem.price * quantity.value;
                                     }
                                   },
-                                  child: const Icon(Icons.remove,
-                                      size: 20, color: Colors.white,),
+                                  child: const Icon(
+                                    Icons.remove,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ValueListenableBuilder(
                                   valueListenable: quantity,
-                                  builder: (BuildContext context, dynamic value,
-                                      Widget? child,) {
+                                  builder: (
+                                    BuildContext context,
+                                    dynamic value,
+                                    Widget? child,
+                                  ) {
                                     return Text(
                                       '${quantity.value}',
                                       style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     );
                                   },
                                 ),
@@ -187,25 +199,28 @@ class CustomOrderItem extends StatelessWidget {
                                 height: 25,
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.amber),
+                                    backgroundColor: MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
-                                        EdgeInsets.zero,),
+                                      EdgeInsets.zero,
+                                    ),
                                     shape: MaterialStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(100),),
+                                          Radius.circular(100),
+                                        ),
                                       ),
                                     ),
                                   ),
                                   onPressed: () {
                                     orderItem.quantity += 1;
                                     quantity.value += 1;
-                                    orderItem.total =
-                                        orderItem.price * orderItem.quantity;
+                                    orderItem.total = orderItem.price * orderItem.quantity;
                                   },
-                                  child: const Icon(Icons.add,
-                                      size: 20, color: Colors.white,),
+                                  child: const Icon(
+                                    Icons.add,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],

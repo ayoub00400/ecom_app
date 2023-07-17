@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecom_app/model/user.dart';
 import '../../../../utils/prefs.dart';
 
@@ -14,7 +14,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
   void getLoginCredantials() async {
     token = Prefs.getString(SPKeys.userToken);
-    userData = User.fromJson(jsonDecode(Prefs.getString(SPKeys.userData)!));
+    var rawUserData = Prefs.getString(SPKeys.userData);
+    userData = rawUserData != null ? User.fromJson(jsonDecode(rawUserData)) : null;
   }
 
   void login(String userName, String password) async {

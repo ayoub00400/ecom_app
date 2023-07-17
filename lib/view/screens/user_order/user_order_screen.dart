@@ -34,10 +34,12 @@ class UserOrderScreen extends StatelessWidget {
             BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () => BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
+                  onTap: () =>
+                      BlocProvider.of<UserOrderCubit>(context).deleteAllItems(),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Icon(Icons.delete, color: Colors.red),
+                    child:
+                        Icon(Icons.delete_outline, size: 30, color: Colors.red),
                   ),
                 );
               },
@@ -49,7 +51,9 @@ class UserOrderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
-                if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) {
+                if (BlocProvider.of<UserOrderCubit>(context)
+                    .orderItems
+                    .isEmpty) {
                   return const Center(
                     child: Text('Empty section'),
                   );
@@ -67,10 +71,13 @@ class UserOrderScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        itemCount: BlocProvider.of<UserOrderCubit>(context).orderItems.length,
+                        itemCount: BlocProvider.of<UserOrderCubit>(context)
+                            .orderItems
+                            .length,
                         itemBuilder: (context, index) {
                           return CustomOrderItem(
-                            orderItem: BlocProvider.of<UserOrderCubit>(context).orderItems[index],
+                            orderItem: BlocProvider.of<UserOrderCubit>(context)
+                                .orderItems[index],
                           );
                         },
                       ),
@@ -83,7 +90,8 @@ class UserOrderScreen extends StatelessWidget {
                         labelColor: Colors.black,
                         height: 45,
                         onPressed: () {},
-                        buttonLabel: 'CHECKOUT (\$ ${BlocProvider.of<UserOrderCubit>(context).total.toString()} )',
+                        buttonLabel:
+                            'CHECKOUT (${BlocProvider.of<UserOrderCubit>(context).total.toString()} \$ )',
                         buttColor: Colors.amber,
                       ),
                     )

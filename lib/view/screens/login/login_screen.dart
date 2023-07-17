@@ -9,8 +9,10 @@ import 'cubit/login_state.dart';
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameFieldController = TextEditingController(text: 'johnd');
-  final TextEditingController passwordFieldController = TextEditingController(text: 'm38rmF\$');
+  final TextEditingController usernameFieldController =
+      TextEditingController(text: 'johnd');
+  final TextEditingController passwordFieldController =
+      TextEditingController(text: 'm38rmF\$');
   final formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
@@ -20,7 +22,8 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginDone) {
-            Navigator.of(context).popAndPushNamed(RouterManager.homeLayoutScreenRoute);
+            Navigator.of(context)
+                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
           }
         },
         child: SafeArea(
@@ -62,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
                       return CustomButton(
-                        buttColor: Colors.blue,
+                        buttColor: Colors.amber,
                         buttonLabel: 'Login',
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
@@ -91,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                           onTap: () {},
                           child: const Text(
                             'Register.',
-                            style: TextStyle(fontSize: 18, color: Colors.blue),
+                            style: TextStyle(fontSize: 18, color: Colors.amber),
                           ),
                         ),
                       ],

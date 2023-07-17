@@ -3,9 +3,10 @@ import 'package:ecom_app/view/screens/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../utils/constants.dart';
-import '../login/cubit/login_state.dart';
-import '../login/widgets/custom_text_field.dart';
+import '../../../../utils/constants.dart';
+
+import '../../login/cubit/login_state.dart';
+import '../../login/widgets/custom_text_field.dart';
 import 'cubit/user_details_cubit.dart';
 
 class UserProfileDetailsScreen extends StatelessWidget {

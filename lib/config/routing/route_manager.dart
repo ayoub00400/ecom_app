@@ -3,10 +3,10 @@ import '../../view/screens/home_layout/home_layout.dart';
 import '../../view/screens/login/login_screen.dart';
 import '../../view/screens/home/product_details.dart/prduct_details_screen.dart';
 import '../../view/screens/user_order/user_order_screen.dart';
+import '../../view/screens/user_profile/edite_profile_section/user_profile_details.dart';
 import '../../view/screens/user_profile/lang_section/lang_section_screen.dart';
 import '../../view/screens/user_profile/settings_section/setting_section_screen.dart';
 import '../../view/screens/user_profile/user_profile_screen.dart';
-import '../../view/screens/user_profile/edite_profile_section/edite_profile_screen.dart';
 
 class RouterManager {
   static const String loginScreenRoute = '/login_screen';
@@ -15,7 +15,8 @@ class RouterManager {
   static const String userProfileScreenRoute = '/user_profile_screen';
   static const String userCartScreenRoute = '/cart_screen';
   static const String productDetailsScreenRoute = '/product_details_screen';
-  static const String userProfileDetailsScreenRoute = '/user_profile_details_screen';
+  static const String userProfileDetailsScreenRoute =
+      '/user_profile_details_screen';
   static const String langSectionScreenRoute = '/lang_section_screen';
   static const String settingsSectionScreenRoute = '/settings_section_screen';
 
@@ -51,7 +52,8 @@ class RouterManager {
     userCartScreenRoute: (context) => const UserOrderScreen(),
     userProfileScreenRoute: (context) => LoginScreen(),
     productDetailsScreenRoute: (context) => const ProductDetailsScreen(),
-    userProfileDetailsScreenRoute: (context) => const UserProfileDetailsScreen(),
+    userProfileDetailsScreenRoute: (context) =>
+        const UserProfileDetailsScreen(),
     langSectionScreenRoute: (context) => const LangSectionScreen(),
     settingsSectionScreenRoute: (context) => const SettingsSectionScreen(),
   };

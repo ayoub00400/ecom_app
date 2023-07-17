@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../model/user.dart';
+import '../../../../../../model/user.dart';
 
 part 'user_details_state.dart';
 
@@ -27,6 +27,6 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
 
   void saveDetails() {
     emit(UserDetaailsUploading());
-    response =
+    // response =
   }
 }

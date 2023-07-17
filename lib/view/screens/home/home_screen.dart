@@ -22,7 +22,9 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<HomeCubit>(context).changeViewLayout();
               },
-              child: const Icon(Icons.layers_outlined),
+              child: BlocProvider.of<HomeCubit>(context).isGrid
+                  ? const Icon(Icons.list)
+                  : const Icon(Icons.grid_view),
             );
           },
         ),
@@ -46,9 +48,11 @@ class HomeScreen extends StatelessWidget {
                             cursorColor: Colors.black,
                             onChanged: (value) {
                               if (value == '') {
-                                BlocProvider.of<HomeCubit>(context).loadProduct();
+                                BlocProvider.of<HomeCubit>(context)
+                                    .loadProduct();
                               } else {
-                                BlocProvider.of<HomeCubit>(context).searchProduct(value);
+                                BlocProvider.of<HomeCubit>(context)
+                                    .searchProduct(value);
                               }
                             },
                             decoration: InputDecoration(
@@ -57,11 +61,13 @@ class HomeScreen extends StatelessWidget {
                               fillColor: Colors.white,
                               isDense: true,
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black),
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black),
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               hintText: 'Search for item',
@@ -77,7 +83,10 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
                         onTap: () {},
-                        child: const Icon(Icons.settings),
+                        child: const Icon(
+                          Icons.filter_alt_outlined,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ],
@@ -92,12 +101,16 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  if (state is LoadingProductsDone || state is HomeLayoutChanged) {
-                    return BlocProvider.of<HomeCubit>(context).resultOfSearch.isEmpty
+                  if (state is LoadingProductsDone ||
+                      state is HomeLayoutChanged) {
+                    return BlocProvider.of<HomeCubit>(context)
+                            .resultOfSearch
+                            .isEmpty
                         ? Expanded(
                             child: CustomRereshableBodyList(
-                              onRefresh: () =>
-                                  BlocProvider.of<HomeCubit>(context).searchProduct(searchFieldController.text),
+                              onRefresh: () => BlocProvider.of<HomeCubit>(
+                                      context)
+                                  .searchProduct(searchFieldController.text),
                               text: 'Seems  Empty ,  there is no data to show ',
                             ),
                           )
@@ -105,33 +118,44 @@ class HomeScreen extends StatelessWidget {
                             child: RefreshIndicator(
                               onRefresh: () async {
                                 searchFieldController.text == ''
-                                    ? BlocProvider.of<HomeCubit>(context).loadProduct()
-                                    : BlocProvider.of<HomeCubit>(context).searchProduct(
+                                    ? BlocProvider.of<HomeCubit>(context)
+                                        .loadProduct()
+                                    : BlocProvider.of<HomeCubit>(context)
+                                        .searchProduct(
                                         searchFieldController.text,
                                       );
                               },
                               child: BlocProvider.of<HomeCubit>(context).isGrid
                                   ? GridView.builder(
-                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         childAspectRatio: .75,
                                         mainAxisSpacing: 1,
                                         crossAxisSpacing: 0,
                                       ),
-                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch.length,
+                                      itemCount:
+                                          BlocProvider.of<HomeCubit>(context)
+                                              .resultOfSearch
+                                              .length,
                                       itemBuilder: (context, index) {
                                         return ProductCard(
-                                          productDetailes: BlocProvider.of<HomeCubit>(
+                                          productDetailes:
+                                              BlocProvider.of<HomeCubit>(
                                             context,
                                           ).resultOfSearch[index],
                                         );
                                       },
                                     )
                                   : ListView.builder(
-                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch.length,
+                                      itemCount:
+                                          BlocProvider.of<HomeCubit>(context)
+                                              .resultOfSearch
+                                              .length,
                                       itemBuilder: (context, index) {
                                         return ProductCardList(
-                                          productDetailes: BlocProvider.of<HomeCubit>(
+                                          productDetailes:
+                                              BlocProvider.of<HomeCubit>(
                                             context,
                                           ).resultOfSearch[index],
                                         );
@@ -140,14 +164,17 @@ class HomeScreen extends StatelessWidget {
                             ),
                           );
                   }
-                  if (state is LoadingProductsFailed || state is LoadingProductsError) {
+                  if (state is LoadingProductsFailed ||
+                      state is LoadingProductsError) {
                     return CustomRereshableBodyList(
-                      onRefresh: () => BlocProvider.of<HomeCubit>(context).loadProduct(),
+                      onRefresh: () =>
+                          BlocProvider.of<HomeCubit>(context).loadProduct(),
                       text: 'Gathering data failed, please refresh the page!',
                     );
                   }
 
-                  return const Center(child: Text('Oppps try to relunch the app'));
+                  return const Center(
+                      child: Text('Oppps try to relunch the app'));
                 },
               ),
             ],

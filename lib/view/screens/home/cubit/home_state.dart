@@ -13,8 +13,16 @@ class LoadingProductsError extends HomeState {
   LoadingProductsError(this.erroString);
 }
 
+class LoadingCategories extends HomeState {}
+
+class LoadingCategoriesDone extends HomeState {}
+
+class LoadingCategoriesFailed extends HomeState {}
+
 class UserAlreadyLoggedIn extends HomeState {}
 
 class UserNotLoggedInYet extends HomeState {}
 
 class HomeLayoutChanged extends HomeState {}
+
+class ShipSelected extends HomeState {}

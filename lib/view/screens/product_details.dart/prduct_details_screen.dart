@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../model/product.dart';
-import '../../../common/custom_button.dart';
+import '../../../model/product.dart';
+import '../../common/custom_button.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
@@ -83,8 +84,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '\$${productData.price}',
-                                maxLines: 3,
+                                NumberFormat.currency(
+                                  locale: 'fr',
+                                  symbol: '',
+                                ).format(productData.price),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 22,

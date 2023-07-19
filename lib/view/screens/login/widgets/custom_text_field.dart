@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../utils/constants.dart';
+
 class CustomTextField extends StatelessWidget {
   final String label;
   final IconData prefixIcon;
@@ -18,11 +20,10 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: Constants.mediumePadding, vertical: Constants.mediumePadding),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (fieldContent) {
-          //TODO:fix bug here:
           if (fieldContent == null) {
             return 'Field Empty!';
           } else {
@@ -33,8 +34,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon),
           label: Text(label),
-          suffixIcon:
-              GestureDetector(onTap: () => onTap, child: Icon(suffixIcon)),
+          suffixIcon: GestureDetector(onTap: () => onTap, child: Icon(suffixIcon)),
         ),
       ),
     );

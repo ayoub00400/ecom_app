@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ecom_app/model/user.dart';
+import '../../../../model/user.dart';
 import '../../../../utils/prefs.dart';
 
 import '../../../../utils/constants.dart';
@@ -21,8 +21,8 @@ class LoginCubit extends Cubit<LoginState> {
   void login(String userName, String password) async {
     try {
       emit(LoginLoading());
-      token = await userApiRepo.authUser(userName, password);
-      userData = await userApiRepo.getUser(1);
+      token = await Constants.userApiRepo.authUser(userName, password);
+      userData = await Constants.userApiRepo.getUser(1);
 
       if (token != null && userData != null) {
         Prefs.setString(SPKeys.userToken, token!);

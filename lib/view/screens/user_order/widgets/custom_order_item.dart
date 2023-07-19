@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../model/order_item.dart';
+import '../../../../utils/constants.dart';
 import '../cubit/user_order_cubit.dart';
 
 class CustomOrderItem extends StatelessWidget {
@@ -25,7 +26,7 @@ class CustomOrderItem extends StatelessWidget {
         context.read<UserOrderCubit>().deleteSingleItem(orderItem.id!);
       },
       confirmDismiss: (direction) async {
-        return await showDialog(
+        await showDialog(
           context: context,
           builder: (_) => AlertDialog(
             content: const Text('R u sure to delete this item from list '),
@@ -45,6 +46,7 @@ class CustomOrderItem extends StatelessWidget {
             ],
           ),
         );
+        return null;
       },
       direction: DismissDirection.horizontal,
       background: ValueListenableBuilder(
@@ -60,7 +62,7 @@ class CustomOrderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumePadding),
                   child: Icon(
                     Icons.delete,
                     color: Colors.white,
@@ -70,7 +72,7 @@ class CustomOrderItem extends StatelessWidget {
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumePadding),
                   child: Text(
                     'Delete',
                     style: TextStyle(color: Colors.white),
@@ -105,7 +107,7 @@ class CustomOrderItem extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(Constants.smallPadding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -176,7 +178,7 @@ class CustomOrderItem extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(Constants.smallPadding),
                                 child: ValueListenableBuilder(
                                   valueListenable: quantity,
                                   builder: (

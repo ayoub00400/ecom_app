@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../config/routing/route_manager.dart';
 import '../../model/product.dart';
+import '../../utils/constants.dart';
 
 class ProductCard extends StatelessWidget {
   final Product productDetailes;
@@ -54,7 +55,8 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+                padding: const EdgeInsets.only(
+                    bottom: Constants.smallPadding, left: Constants.smallPadding, right: Constants.smallPadding,),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(.5)),
                 child: Column(
                   children: [

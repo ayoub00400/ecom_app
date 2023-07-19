@@ -1,14 +1,15 @@
-import 'package:ecom_app/config/language/cubit/lang_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'config/language/cubit/lang_cubit.dart';
+import 'config/language/cubit/lang_state.dart';
 import 'config/routing/route_manager.dart';
 import 'config/theme/theme.dart';
 import 'utils/prefs.dart';
 import 'view/screens/login/cubit/login_cubit.dart';
 import 'view/screens/login/cubit/login_state.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

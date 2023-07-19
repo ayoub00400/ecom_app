@@ -3,17 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../model/order.dart';
 import '../../../../model/order_item.dart';
 import '../../../../utils/constants.dart';
-
 import 'user_order_state.dart';
 
 class UserOrderCubit extends Cubit<UserCartState> {
-  List<OrderItem> orderItems = [];
+  List<OrderItem>? orderItems;
   double total = 0;
   UserOrderCubit() : super(UserCartInitial());
-  loadOrder() async {
+  Future<void> loadOrder() async {
     try {
+      orderItems = null;
       emit(UserCartLoading());
-      Order order = await orderApiRepo.getUserOrder();
+      Order order = await Constants.orderApiRepo.getUserOrder();
       total = order.total!;
       orderItems = order.orderItems ?? orderItems;
       emit(UserCartLoadingDone());
@@ -28,7 +28,7 @@ class UserOrderCubit extends Cubit<UserCartState> {
   }
 
   void deleteSingleItem(int id) {
-    orderItems.removeWhere((element) => element.id == id);
+    orderItems!.removeWhere((element) => element.id == id);
     emit(SingleItemRemoved());
   }
 }

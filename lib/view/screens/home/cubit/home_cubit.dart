@@ -2,28 +2,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../model/product.dart';
 import '../../../../utils/constants.dart';
-
 import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   bool isGrid = true;
   List<Product>? productsList;
-  List<Product> resultOfSearch = [];
+  List<dynamic> categoriessList = [];
+  List<Product>? resultOfSearch;
+  int? selectedCatShip;
+
   HomeCubit() : super(HomeInitial());
+
   Future<void> loadProduct() async {
     try {
       emit(LoadingProducts());
-      productsList = await productApiRepo.getAllProducts();
+      selectedCatShip = null;
+      productsList = await Constants.productApiRepo.getAllProducts();
+      categoriessList = await Constants.productApiRepo.getAllProductsCategories();
       resultOfSearch = productsList!;
       emit(LoadingProductsDone());
     } catch (e) {
-      if (e is Exception) {
-        emit(LoadingProductsError(e.toString()));
-        throw Exception();
-      } else {
-        emit(LoadingProductsFailed());
-        throw Exception();
-      }
+      emit(LoadingProductsError(e.toString()));
     }
   }
 
@@ -41,8 +40,22 @@ class HomeCubit extends Cubit<HomeState> {
           (element) => element.title.toLowerCase().contains(searchText.toLowerCase().trim()),
         )
         .toList();
-    resultOfSearch = resultOfSearch.isEmpty ? [] : resultOfSearch;
+    resultOfSearch = resultOfSearch!.isEmpty ? [] : resultOfSearch;
 
     emit(LoadingProductsDone());
+  }
+
+  void selectedCategory(int index, String category) async {
+    try {
+      emit(LoadingProducts());
+      selectedCatShip = index;
+
+      productsList = await Constants.productApiRepo.getCategoryProducts(category);
+      resultOfSearch = productsList!;
+
+      emit(LoadingProductsDone());
+    } catch (e) {
+      emit(LoadingCategoriesFailed());
+    }
   }
 }

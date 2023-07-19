@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../config/routing/route_manager.dart';
 import '../../model/product.dart';
+import '../../utils/constants.dart';
 
 class ProductCardList extends StatelessWidget {
   final Product productDetailes;
@@ -29,7 +30,7 @@ class ProductCardList extends StatelessWidget {
             children: [
               Flexible(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
                   width: 120,
                   child: Hero(
                     tag: productDetailes.id,
@@ -41,71 +42,65 @@ class ProductCardList extends StatelessWidget {
                 ),
               ),
               Flexible(
-                child: Container(
-                  padding: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  decoration: BoxDecoration(color: Colors.white.withOpacity(.5)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 8,
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(productDetailes.category),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      productDetailes.title,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.grey,
                       ),
-                      Container(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(productDetailes.category),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        productDetailes.title,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.grey,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.orange,
+                          size: 18,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.orange,
-                            size: 18,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '${productDetailes.rating.rate} (${productDetailes.rating.count})',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const Spacer(),
-                          FittedBox(
-                            child: Text(
-                              NumberFormat.currency(
-                                locale: 'fr',
-                                symbol: '',
-                              ).format(productDetailes.price),
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.green[700],
-                              ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          '${productDetailes.rating.rate} (${productDetailes.rating.count})',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: Constants.smallPadding),
+                          child: Text(
+                            NumberFormat.currency(
+                              locale: 'fr',
+                              symbol: '',
+                            ).format(productDetailes.price),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green[700],
                             ),
                           ),
-                        ],
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: OutlinedButton(onPressed: () {}, child: const Text('+ Add to card')),
-                      // )
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],

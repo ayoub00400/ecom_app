@@ -29,16 +29,20 @@ class UserRepoImp implements IUserRepository {
     try {
       User user;
       var response = await get(Uri.parse('${ApiHelper.userData}/$userId'));
-      var decodedResponse = json.decode(response.body);
-      user = User.fromJson(decodedResponse);
-      return user;
+      if (response.statusCode == 200) {
+        var decodedResponse = json.decode(response.body);
+        user = User.fromJson(decodedResponse);
+        return user;
+      } else {
+        throw Exception('bad request');
+      }
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   @override
-  Future<bool> updateUserDetails(int userId, Map<String, dynamic> body) async {
+  Future<bool> updateUserDetails({required int userId, required String body}) async {
     try {
       var response = await put(
         Uri.parse(
@@ -47,6 +51,7 @@ class UserRepoImp implements IUserRepository {
         body: body,
       );
       if (response.statusCode == 200) {
+        //print(response.statusCode);
         return true;
       } else {
         throw Exception('bad request');

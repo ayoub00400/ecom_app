@@ -1,10 +1,10 @@
-import 'package:ecom_app/utils/extensions.dart';
-import 'package:ecom_app/view/screens/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/extensions.dart';
+import '../login/cubit/login_cubit.dart';
 import '../login/cubit/login_state.dart';
 import 'widgets/custom_list_tile.dart';
 
@@ -23,7 +23,7 @@ class UserProfileScreen extends StatelessWidget {
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(Constants.mediumePadding),
                 child: CircleAvatar(
                   maxRadius: 60,
                   backgroundImage: AssetImage(AssetManager.profileImg),

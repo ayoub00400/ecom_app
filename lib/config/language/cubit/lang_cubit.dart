@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
-import 'package:ecom_app/utils/prefs.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'lang_state.dart';
+import '../../../utils/prefs.dart';
+import 'lang_state.dart';
 
 class LangCubit extends Cubit<LangState> {
   String appLocal = 'en';

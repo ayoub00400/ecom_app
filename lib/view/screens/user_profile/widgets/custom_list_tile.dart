@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '../../../../utils/constants.dart';
+
 class CustomListTile extends StatelessWidget {
   final Color tileColor;
   final String title;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Function()? onTap;
-  const CustomListTile(
-      {super.key,
-      required this.title,
-      this.prefixIcon,
-      this.suffixIcon,
-      this.onTap,
-      this.tileColor = Colors.transparent,});
+  const CustomListTile({
+    super.key,
+    required this.title,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onTap,
+    this.tileColor = Colors.transparent,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding, vertical: Constants.smallPadding),
       child: ListTile(
         onTap: onTap,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: Constants.smallPadding, horizontal: Constants.mediumePadding),
         tileColor: Colors.amber.withOpacity(.2),
         title: Text(title),
         leading: Icon(prefixIcon),

@@ -1,3 +1,4 @@
+import '../../../utils/constants.dart';
 import 'cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
 import 'cubit/home_state.dart';
+import 'widgets/custom_filter_ship.dart';
 import 'widgets/custom_refreshable_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,9 +24,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<HomeCubit>(context).changeViewLayout();
               },
-              child: BlocProvider.of<HomeCubit>(context).isGrid
-                  ? const Icon(Icons.list)
-                  : const Icon(Icons.grid_view),
+              child: BlocProvider.of<HomeCubit>(context).isGrid ? const Icon(Icons.list) : const Icon(Icons.grid_view),
             );
           },
         ),
@@ -33,64 +33,85 @@ class HomeScreen extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
+                  horizontal: Constants.smallPadding,
+                  vertical: Constants.smallPadding,
                 ),
                 color: Colors.amber.withOpacity(.8),
                 width: double.maxFinite,
-                child: Row(
+                child: Column(
                   children: [
-                    SizedBox(
-                      width: 320,
-                      child: BlocBuilder<HomeCubit, HomeState>(
-                        builder: (context, state) {
-                          return TextField(
-                            cursorColor: Colors.black,
-                            onChanged: (value) {
-                              if (value == '') {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .loadProduct();
-                              } else {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .searchProduct(value);
-                              }
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 320,
+                          child: BlocBuilder<HomeCubit, HomeState>(
+                            builder: (context, state) {
+                              return TextField(
+                                cursorColor: Colors.black,
+                                onChanged: (value) {
+                                  if (value == '') {
+                                    BlocProvider.of<HomeCubit>(context).loadProduct();
+                                  } else {
+                                    BlocProvider.of<HomeCubit>(context).searchProduct(value);
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  isDense: true,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: 'Search for item',
+                                  prefixIcon: const Icon(Icons.search),
+                                ),
+                                controller: searchFieldController,
+                              );
                             },
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(color: Colors.grey.shade400),
-                              filled: true,
-                              fillColor: Colors.white,
-                              isDense: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: 'Search for item',
-                              prefixIcon: const Icon(Icons.search),
-                            ),
-                            controller: searchFieldController,
-                          );
-                        },
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.filter_alt_outlined,
-                          size: 30,
+                          ),
                         ),
-                      ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: const Icon(
+                              Icons.filter_alt_outlined,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+              ),
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  if (state is LoadingCategories) {
+                    return Container();
+                  } else {
+                    return SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                        itemCount: BlocProvider.of<HomeCubit>(context).categoriessList.length,
+                        itemBuilder: (context, index) {
+                          return CustomFilterShip(
+                            label: BlocProvider.of<HomeCubit>(context).categoriessList[index],
+                            shipIndex: index,
+                          );
+                        },
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  }
+                },
               ),
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
@@ -101,16 +122,25 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  if (state is LoadingProductsDone ||
-                      state is HomeLayoutChanged) {
-                    return BlocProvider.of<HomeCubit>(context)
-                            .resultOfSearch
-                            .isEmpty
+
+                  if (state is LoadingProductsError) {
+                    return CustomRereshableBodyList(
+                      onRefresh: () => BlocProvider.of<HomeCubit>(context).loadProduct(),
+                      text: 'Gathering data failed, please refresh the page!',
+                    );
+                  } else {
+                    if (BlocProvider.of<HomeCubit>(context).resultOfSearch == null) {
+                      return const Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return BlocProvider.of<HomeCubit>(context).resultOfSearch!.isEmpty
                         ? Expanded(
                             child: CustomRereshableBodyList(
-                              onRefresh: () => BlocProvider.of<HomeCubit>(
-                                      context)
-                                  .searchProduct(searchFieldController.text),
+                              onRefresh: () =>
+                                  BlocProvider.of<HomeCubit>(context).searchProduct(searchFieldController.text),
                               text: 'Seems  Empty ,  there is no data to show ',
                             ),
                           )
@@ -118,63 +148,41 @@ class HomeScreen extends StatelessWidget {
                             child: RefreshIndicator(
                               onRefresh: () async {
                                 searchFieldController.text == ''
-                                    ? BlocProvider.of<HomeCubit>(context)
-                                        .loadProduct()
-                                    : BlocProvider.of<HomeCubit>(context)
-                                        .searchProduct(
+                                    ? BlocProvider.of<HomeCubit>(context).loadProduct()
+                                    : BlocProvider.of<HomeCubit>(context).searchProduct(
                                         searchFieldController.text,
                                       );
                               },
                               child: BlocProvider.of<HomeCubit>(context).isGrid
                                   ? GridView.builder(
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         childAspectRatio: .75,
                                         mainAxisSpacing: 1,
                                         crossAxisSpacing: 0,
                                       ),
-                                      itemCount:
-                                          BlocProvider.of<HomeCubit>(context)
-                                              .resultOfSearch
-                                              .length,
+                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch!.length,
                                       itemBuilder: (context, index) {
                                         return ProductCard(
-                                          productDetailes:
-                                              BlocProvider.of<HomeCubit>(
+                                          productDetailes: BlocProvider.of<HomeCubit>(
                                             context,
-                                          ).resultOfSearch[index],
+                                          ).resultOfSearch![index],
                                         );
                                       },
                                     )
                                   : ListView.builder(
-                                      itemCount:
-                                          BlocProvider.of<HomeCubit>(context)
-                                              .resultOfSearch
-                                              .length,
+                                      itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch!.length,
                                       itemBuilder: (context, index) {
                                         return ProductCardList(
-                                          productDetailes:
-                                              BlocProvider.of<HomeCubit>(
+                                          productDetailes: BlocProvider.of<HomeCubit>(
                                             context,
-                                          ).resultOfSearch[index],
+                                          ).resultOfSearch![index],
                                         );
                                       },
                                     ),
                             ),
                           );
                   }
-                  if (state is LoadingProductsFailed ||
-                      state is LoadingProductsError) {
-                    return CustomRereshableBodyList(
-                      onRefresh: () =>
-                          BlocProvider.of<HomeCubit>(context).loadProduct(),
-                      text: 'Gathering data failed, please refresh the page!',
-                    );
-                  }
-
-                  return const Center(
-                      child: Text('Oppps try to relunch the app'));
                 },
               ),
             ],

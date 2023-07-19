@@ -1,9 +1,9 @@
-import 'package:ecom_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/extensions.dart';
 import '../../common/custom_button.dart';
 import 'cubit/login_cubit.dart';
 import 'cubit/login_state.dart';
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         },
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: Constants.smallPadding),
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       context.loc.loginHeader,

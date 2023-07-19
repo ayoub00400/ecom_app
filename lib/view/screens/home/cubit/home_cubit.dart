@@ -11,6 +11,9 @@ class HomeCubit extends Cubit<HomeState> {
   List<Product>? resultOfSearch;
   int? selectedCatShip;
 
+  // repos
+  // final productApiRepo = ProductRepoImp();
+
   HomeCubit() : super(HomeInitial());
 
   Future<void> loadProduct() async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/constants.dart';
-import '../../../utils/extensions.dart';
+import '../../../utils/extensions/build_context.dart';
 import '../../common/custom_button.dart';
 import 'cubit/user_order_cubit.dart';
 import 'cubit/user_order_state.dart';
@@ -26,7 +26,7 @@ class UserOrderScreen extends StatelessWidget {
               BlocBuilder<UserOrderCubit, UserCartState>(
                 builder: (context, state) {
                   if (BlocProvider.of<UserOrderCubit>(context).orderItems != null) {
-                    return Text('(${BlocProvider.of<UserOrderCubit>(context).orderItems!.length.toString()})');
+                    return Text('(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
                   } else {
                     return const Text('(0)');
                   }
@@ -39,30 +39,31 @@ class UserOrderScreen extends StatelessWidget {
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () async {
-                    if (BlocProvider.of<UserOrderCubit>(context).orderItems == null) {}
-                    if (BlocProvider.of<UserOrderCubit>(context).orderItems!.isNotEmpty) {
-                      await showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          content: const Text('R u sure to delete All items from Cart? '),
-                          actions: [
-                            ElevatedButton(
-                              onPressed: () {
-                                BlocProvider.of<UserOrderCubit>(context).deleteAllItems();
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('yes'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('no'),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
+                    // if (BlocProvider.of<UserOrderCubit>(context).orderItems == null) {}
+                    if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) return;
+
+                    // TODO : extract to components
+                    await showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        content: const Text('R u sure to delete All items from Cart? '),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              BlocProvider.of<UserOrderCubit>(context).deleteAllItems();
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('yes'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('no'),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: Constants.smallPadding),
@@ -78,13 +79,15 @@ class UserOrderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
             child: BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
-                if (state is UserCartLoading || BlocProvider.of<UserOrderCubit>(context).orderItems == null) {
+                final orderCubit = BlocProvider.of<UserOrderCubit>(context);
+
+                if (state is UserCartLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (BlocProvider.of<UserOrderCubit>(context).orderItems!.isEmpty) {
+                if (orderCubit.orderItems.isEmpty) {
                   return RefreshIndicator(
                     onRefresh: () async {
-                      BlocProvider.of<UserOrderCubit>(context).loadOrder();
+                      orderCubit.loadOrder();
                     },
                     child: ListView(
                       children: [
@@ -106,13 +109,13 @@ class UserOrderScreen extends StatelessWidget {
                     Expanded(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          BlocProvider.of<UserOrderCubit>(context).loadOrder();
+                          orderCubit.loadOrder();
                         },
                         child: ListView.builder(
-                          itemCount: BlocProvider.of<UserOrderCubit>(context).orderItems!.length,
+                          itemCount: orderCubit.orderItems.length,
                           itemBuilder: (context, index) {
                             return CustomOrderItem(
-                              orderItem: BlocProvider.of<UserOrderCubit>(context).orderItems![index],
+                              orderItem: orderCubit.orderItems[index],
                             );
                           },
                         ),
@@ -126,8 +129,7 @@ class UserOrderScreen extends StatelessWidget {
                         labelColor: Colors.black,
                         height: 45,
                         onPressed: () {},
-                        buttonLabel:
-                            '${context.loc.checkout.toUpperCase()} (${BlocProvider.of<UserOrderCubit>(context).total.toString()} \$ )',
+                        buttonLabel: '${context.loc.checkout.toUpperCase()} (${orderCubit.total.toString()} \$ )',
                         buttColor: Colors.amber,
                       ),
                     )

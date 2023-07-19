@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../view/screens/edite_profile_section/edite_profile_details_screen.dart';
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/home_layout/home_layout.dart';
-
 import '../../view/screens/lang_section/lang_section_screen.dart';
 import '../../view/screens/login/login_screen.dart';
 import '../../view/screens/product_details.dart/prduct_details_screen.dart';
-
 import '../../view/screens/settings_section/setting_section_screen.dart';
 import '../../view/screens/user_order/user_order_screen.dart';
 import '../../view/screens/user_profile/user_profile_screen.dart';

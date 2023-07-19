@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../model/user.dart';
-import '../../../../utils/prefs.dart';
-
 import '../../../../utils/constants.dart';
-
+import '../../../../utils/prefs.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   String? token;
   User? userData;
   LoginCubit() : super(LoginInitial());
+
   void getLoginCredantials() async {
     token = Prefs.getString(SPKeys.userToken);
     var rawUserData = Prefs.getString(SPKeys.userData);
@@ -38,7 +38,9 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  // TODO : create profile cubit
   Future<void> logOut() async {
+    // TODO : delete only user data
     await Prefs.clear();
     emit(LogOut());
   }

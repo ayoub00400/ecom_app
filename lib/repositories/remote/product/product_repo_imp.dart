@@ -10,6 +10,7 @@ class ProductRepoImp implements IProductRepository {
   @override
   Future<List<Product>> getAllProducts() async {
     try {
+      // TODO : replace it with http.get
       Response response = await get(Uri.parse(ApiHelper.allProducts));
 
       if (response.statusCode == 200) {

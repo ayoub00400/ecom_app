@@ -1,9 +1,3 @@
-import 'dart:convert';
-
-Product productFromJson(String str) => Product.fromJson(json.decode(str));
-
-String productToJson(Product data) => json.encode(data.toJson());
-
 class Product {
   int id;
   String title;

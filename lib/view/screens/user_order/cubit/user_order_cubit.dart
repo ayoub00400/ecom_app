@@ -6,16 +6,17 @@ import '../../../../utils/constants.dart';
 import 'user_order_state.dart';
 
 class UserOrderCubit extends Cubit<UserCartState> {
-  List<OrderItem>? orderItems;
+  List<OrderItem> orderItems = [];
   double total = 0;
   UserOrderCubit() : super(UserCartInitial());
+
   Future<void> loadOrder() async {
     try {
-      orderItems = null;
+      orderItems = [];
       emit(UserCartLoading());
       Order order = await Constants.orderApiRepo.getUserOrder();
       total = order.total!;
-      orderItems = order.orderItems ?? orderItems;
+      orderItems = order.orderItems ?? [];
       emit(UserCartLoadingDone());
     } catch (e) {
       emit(UserCartLoadingFailed());
@@ -28,7 +29,7 @@ class UserOrderCubit extends Cubit<UserCartState> {
   }
 
   void deleteSingleItem(int id) {
-    orderItems!.removeWhere((element) => element.id == id);
+    orderItems.removeWhere((element) => element.id == id);
     emit(SingleItemRemoved());
   }
 }

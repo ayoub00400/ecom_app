@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../model/user.dart';
 import '../../../../utils/constants.dart';

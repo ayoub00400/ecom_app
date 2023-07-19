@@ -7,11 +7,13 @@ import '../../utils/constants.dart';
 
 class ProductCardList extends StatelessWidget {
   final Product productDetailes;
+
   const ProductCardList({super.key, required this.productDetailes});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // TODO : pass is as param
       onTap: () {
         Navigator.of(context).pushNamed(
           RouterManager.productDetailsScreenRoute,

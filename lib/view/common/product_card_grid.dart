@@ -56,7 +56,10 @@ class ProductCard extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.only(
-                    bottom: Constants.smallPadding, left: Constants.smallPadding, right: Constants.smallPadding,),
+                  bottom: Constants.smallPadding,
+                  left: Constants.smallPadding,
+                  right: Constants.smallPadding,
+                ),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(.5)),
                 child: Column(
                   children: [
@@ -101,6 +104,7 @@ class ProductCard extends StatelessWidget {
                         const Spacer(),
                         FittedBox(
                           child: Text(
+                            // TODO : extract to method or extension
                             NumberFormat.currency(
                               locale: 'fr',
                               symbol: '',

@@ -1,10 +1,10 @@
-import '../../../utils/constants.dart';
-import 'cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/constants.dart';
 import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
+import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/custom_filter_ship.dart';
 import 'widgets/custom_refreshable_list.dart';
@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
               ),
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
-                  if (state is LoadingCategories) {
+                  if (state is LoadingCategories || state is LoadingProducts) {
                     return Container();
                   } else {
                     return SizedBox(

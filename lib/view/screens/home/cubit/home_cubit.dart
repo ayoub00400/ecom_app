@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../model/product.dart';
-import '../../../../utils/constants.dart';
+import '../../../../repositories/remote/product/product_repo_imp.dart';
 import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -11,8 +11,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Product>? resultOfSearch;
   int? selectedCatShip;
 
-  // repos
-  // final productApiRepo = ProductRepoImp();
+  final productApiRepo = ProductRepoImp();
 
   HomeCubit() : super(HomeInitial());
 
@@ -20,8 +19,8 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(LoadingProducts());
       selectedCatShip = null;
-      productsList = await Constants.productApiRepo.getAllProducts();
-      categoriessList = await Constants.productApiRepo.getAllProductsCategories();
+      productsList = await productApiRepo.getAllProducts();
+      categoriessList = await productApiRepo.getAllProductsCategories();
       resultOfSearch = productsList!;
       emit(LoadingProductsDone());
     } catch (e) {
@@ -53,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(LoadingProducts());
       selectedCatShip = index;
 
-      productsList = await Constants.productApiRepo.getCategoryProducts(category);
+      productsList = await productApiRepo.getCategoryProducts(category);
       resultOfSearch = productsList!;
 
       emit(LoadingProductsDone());

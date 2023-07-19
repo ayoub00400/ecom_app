@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../model/user.dart';
-import '../../../../utils/constants.dart';
+import '../../../../repositories/remote/user/user_repo_imp.dart';
 
 part 'user_details_state.dart';
 
 class UserDetailsCubit extends Cubit<UserDetailsState> {
+  UserRepoImp userApiRepo = UserRepoImp();
   User? userData;
   UserDetailsCubit() : super(UserDetailsInitial());
   TextEditingController emailController = TextEditingController();
@@ -31,7 +32,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   void saveDetails(int userId) async {
     emit(UserDetailsUploading());
     try {
-      await Constants.userApiRepo.updateUserDetails(userId: userId, body: putEditedData());
+      await userApiRepo.updateUserDetails(userId: userId, body: putEditedData());
 
       emit(UserDetailsUploadingDone());
     } catch (e) {

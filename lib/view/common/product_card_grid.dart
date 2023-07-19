@@ -1,5 +1,8 @@
+import 'package:ecom_app/config/language/cubit/lang_cubit.dart';
+import 'package:ecom_app/config/language/cubit/lang_state.dart';
+import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/routing/route_manager.dart';
 import '../../model/product.dart';
@@ -103,16 +106,18 @@ class ProductCard extends StatelessWidget {
                         ),
                         const Spacer(),
                         FittedBox(
-                          child: Text(
-                            // TODO : extract to method or extension
-                            NumberFormat.currency(
-                              locale: 'fr',
-                              symbol: '',
-                            ).format(productDetailes.price),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.green[700],
-                            ),
+                          child: BlocBuilder<LangCubit, LangState>(
+                            builder: (context, state) {
+                              return Text(
+                                // TODO : extract to method or extension
+
+                                productDetailes.price.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.green[700],
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

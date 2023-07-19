@@ -46,7 +46,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 20,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(Constants.mediumePadding),
+                      padding: const EdgeInsets.all(Constants.mediumPadding),
                       child: CircleAvatar(
                         maxRadius: 60,
                         backgroundImage: AssetImage(AssetManager.profileImg),

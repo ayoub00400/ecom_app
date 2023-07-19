@@ -13,7 +13,7 @@ class LangSectionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: Constants.mediumePadding, vertical: Constants.mediumePadding),
+        padding: const EdgeInsets.symmetric(horizontal: Constants.mediumPadding, vertical: Constants.mediumPadding),
         child: BlocBuilder<LangCubit, LangState>(
           builder: (context, state) {
             return Column(

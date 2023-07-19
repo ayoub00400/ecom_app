@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../config/routing/route_manager.dart';
 import '../../../utils/constants.dart';
 import '../../common/product_card_grid.dart';
 import '../../common/product_card_list.dart';
@@ -174,6 +175,12 @@ class HomeScreen extends StatelessWidget {
                                       itemCount: BlocProvider.of<HomeCubit>(context).resultOfSearch!.length,
                                       itemBuilder: (context, index) {
                                         return ProductCardList(
+                                          onTap: () => Navigator.of(context).pushNamed(
+                                            RouterManager.productDetailsScreenRoute,
+                                            arguments: BlocProvider.of<HomeCubit>(
+                                              context,
+                                            ).resultOfSearch![index],
+                                          ),
                                           productDetailes: BlocProvider.of<HomeCubit>(
                                             context,
                                           ).resultOfSearch![index],

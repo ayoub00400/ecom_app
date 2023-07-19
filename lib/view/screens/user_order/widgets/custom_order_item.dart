@@ -1,7 +1,10 @@
+import 'package:ecom_app/config/language/cubit/lang_state.dart';
+import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../config/language/cubit/lang_cubit.dart';
 import '../../../../model/order_item.dart';
 import '../../../../utils/constants.dart';
 import '../cubit/user_order_cubit.dart';
@@ -62,7 +65,7 @@ class CustomOrderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumePadding),
+                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
                   child: Icon(
                     Icons.delete,
                     color: Colors.white,
@@ -72,7 +75,7 @@ class CustomOrderItem extends StatelessWidget {
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumePadding),
+                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
                   child: Text(
                     'Delete',
                     style: TextStyle(color: Colors.white),
@@ -130,17 +133,17 @@ class CustomOrderItem extends StatelessWidget {
                         children: [
                           ValueListenableBuilder(
                             valueListenable: quantity,
-                            builder: (context, value, child) => Text(
-                              // (NumberFormat(',#').format(orderItem.total)).toString(),
-                              NumberFormat.currency(
-                                locale: 'fr',
-                                symbol: '',
-                              ).format(orderItem.total),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green,
-                              ),
+                            builder: (context, value, child) => BlocBuilder<LangCubit, LangState>(
+                              builder: (context, state) {
+                                return Text(
+                                  orderItem.total.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           const Spacer(),

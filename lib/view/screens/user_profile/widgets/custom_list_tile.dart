@@ -25,7 +25,7 @@ class CustomListTile extends StatelessWidget {
         onTap: onTap,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         contentPadding:
-            const EdgeInsets.symmetric(vertical: Constants.smallPadding, horizontal: Constants.mediumePadding),
+            const EdgeInsets.symmetric(vertical: Constants.smallPadding, horizontal: Constants.mediumPadding),
         tileColor: Colors.amber.withOpacity(.2),
         title: Text(title),
         leading: Icon(prefixIcon),

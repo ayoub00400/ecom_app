@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/extensions/build_context.dart';
 import '../../common/custom_button.dart';
+import '../../components/confirmation_dialog.dart';
 import 'cubit/user_order_cubit.dart';
 import 'cubit/user_order_state.dart';
 import 'widgets/custom_order_item.dart';
@@ -25,7 +26,7 @@ class UserOrderScreen extends StatelessWidget {
               ),
               BlocBuilder<UserOrderCubit, UserCartState>(
                 builder: (context, state) {
-                  if (BlocProvider.of<UserOrderCubit>(context).orderItems != null) {
+                  if (BlocProvider.of<UserOrderCubit>(context).orderItems.isNotEmpty) {
                     return Text('(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
                   } else {
                     return const Text('(0)');
@@ -42,28 +43,13 @@ class UserOrderScreen extends StatelessWidget {
                     // if (BlocProvider.of<UserOrderCubit>(context).orderItems == null) {}
                     if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) return;
 
-                    // TODO : extract to components
-                    await showDialog(
+                    bool result = await confirmationDialog(
                       context: context,
-                      builder: (_) => AlertDialog(
-                        content: const Text('R u sure to delete All items from Cart? '),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<UserOrderCubit>(context).deleteAllItems();
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('yes'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('no'),
-                          ),
-                        ],
-                      ),
+                      content: 'R u sure to delete All items from Cart? ',
                     );
+                    if (result) {
+                      BlocProvider.of<UserOrderCubit>(context).deleteAllItems();
+                    }
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: Constants.smallPadding),
@@ -122,7 +108,7 @@ class UserOrderScreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsetsDirectional.only(bottom: Constants.mediumePadding),
+                      padding: const EdgeInsetsDirectional.only(bottom: Constants.mediumPadding),
                       alignment: AlignmentDirectional.center,
                       child: CustomButton(
                         width: 300,

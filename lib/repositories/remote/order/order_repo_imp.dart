@@ -10,13 +10,8 @@ class OrderRepoImp extends IOrderRepo {
   @override
   Future<Order> getUserOrder() async {
     try {
-      // TODO : remove Future.delayed
-      String response = await Future.delayed(
-        const Duration(seconds: 1),
-        () async {
-          return await rootBundle.loadString(AssetManager.orderJson);
-        },
-      );
+      String response = await rootBundle.loadString(AssetManager.orderJson);
+
       Map<String, dynamic> decodedResponse = jsonDecode(response);
       Order userCarts = Order.fromMap(decodedResponse);
 

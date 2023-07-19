@@ -1,4 +1,8 @@
+import 'package:ecom_app/config/language/cubit/lang_cubit.dart';
+import 'package:ecom_app/config/language/cubit/lang_state.dart';
+import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../model/product.dart';
@@ -41,21 +45,46 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.orange,
+                                Container(
+                                  height: 44,
+                                  width: 44,
+                                  alignment: AlignmentDirectional.center,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 20,
+                                    alignment: AlignmentDirectional.center,
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.orange,
+                                    ),
                                   ),
                                 ),
                                 const Spacer(),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.shopping_cart_outlined,
-                                    color: Colors.orange,
+                                Container(
+                                  height: 44,
+                                  width: 44,
+                                  alignment: AlignmentDirectional.center,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 20,
+                                    // style: ButtonStyle(
+                                    //   shape: MaterialStateProperty.all(
+                                    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                                    alignment: AlignmentDirectional.center,
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.shopping_cart_outlined,
+                                      color: Colors.orange,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -83,16 +112,17 @@ class ProductDetailsScreen extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              Text(
-                                NumberFormat.currency(
-                                  locale: 'fr',
-                                  symbol: '',
-                                ).format(productData.price),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 22,
-                                  color: Colors.green[800],
-                                ),
+                              BlocBuilder<LangCubit, LangState>(
+                                builder: (context, state) {
+                                  return Text(
+                                    productData.price.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 22,
+                                      color: Colors.green[800],
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

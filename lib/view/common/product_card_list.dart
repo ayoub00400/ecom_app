@@ -1,4 +1,8 @@
+import 'package:ecom_app/config/language/cubit/lang_cubit.dart';
+import 'package:ecom_app/config/language/cubit/lang_state.dart';
+import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../config/routing/route_manager.dart';
@@ -7,19 +11,14 @@ import '../../utils/constants.dart';
 
 class ProductCardList extends StatelessWidget {
   final Product productDetailes;
+  final Function onTap;
 
-  const ProductCardList({super.key, required this.productDetailes});
+  const ProductCardList({super.key, required this.productDetailes, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // TODO : pass is as param
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          RouterManager.productDetailsScreenRoute,
-          arguments: productDetailes,
-        );
-      },
+      onTap: () => onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         height: 200,
@@ -89,15 +88,16 @@ class ProductCardList extends StatelessWidget {
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.only(right: Constants.smallPadding),
-                          child: Text(
-                            NumberFormat.currency(
-                              locale: 'fr',
-                              symbol: '',
-                            ).format(productDetailes.price),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.green[700],
-                            ),
+                          child: BlocBuilder<LangCubit, LangState>(
+                            builder: (context, state) {
+                              return Text(
+                                productDetailes.price.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.green[700],
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

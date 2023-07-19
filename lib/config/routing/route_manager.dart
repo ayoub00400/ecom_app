@@ -1,11 +1,15 @@
+import 'package:flutter/material.dart';
+
+import '../../view/screens/edite_profile_section/edite_profile_details_screen.dart';
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/home_layout/home_layout.dart';
+
+import '../../view/screens/lang_section/lang_section_screen.dart';
 import '../../view/screens/login/login_screen.dart';
-import '../../view/screens/home/product_details.dart/prduct_details_screen.dart';
+import '../../view/screens/product_details.dart/prduct_details_screen.dart';
+
+import '../../view/screens/settings_section/setting_section_screen.dart';
 import '../../view/screens/user_order/user_order_screen.dart';
-import '../../view/screens/user_profile/edite_profile_section/user_profile_details.dart';
-import '../../view/screens/user_profile/lang_section/lang_section_screen.dart';
-import '../../view/screens/user_profile/settings_section/setting_section_screen.dart';
 import '../../view/screens/user_profile/user_profile_screen.dart';
 
 class RouterManager {
@@ -15,8 +19,7 @@ class RouterManager {
   static const String userProfileScreenRoute = '/user_profile_screen';
   static const String userCartScreenRoute = '/cart_screen';
   static const String productDetailsScreenRoute = '/product_details_screen';
-  static const String userProfileDetailsScreenRoute =
-      '/user_profile_details_screen';
+  static const String userProfileDetailsScreenRoute = '/user_profile_details_screen';
   static const String langSectionScreenRoute = '/lang_section_screen';
   static const String settingsSectionScreenRoute = '/settings_section_screen';
 
@@ -25,13 +28,19 @@ class RouterManager {
       case loginScreenRoute:
         return LoginScreen();
       case homeScreenRoute:
-        return HomeScreen();
+        return HomeScreen(
+          key: const PageStorageKey('homePage'),
+        );
       case userProfileScreenRoute:
-        return const UserProfileScreen();
+        return const UserProfileScreen(
+          key: PageStorageKey('profilePage'),
+        );
       case productDetailsScreenRoute:
-        return HomeScreen();
+        return const ProductDetailsScreen();
       case userCartScreenRoute:
-        return const UserOrderScreen();
+        return const UserOrderScreen(
+          key: PageStorageKey('orderPage'),
+        );
       case userProfileDetailsScreenRoute:
         return const UserProfileDetailsScreen();
       case langSectionScreenRoute:
@@ -52,8 +61,7 @@ class RouterManager {
     userCartScreenRoute: (context) => const UserOrderScreen(),
     userProfileScreenRoute: (context) => LoginScreen(),
     productDetailsScreenRoute: (context) => const ProductDetailsScreen(),
-    userProfileDetailsScreenRoute: (context) =>
-        const UserProfileDetailsScreen(),
+    userProfileDetailsScreenRoute: (context) => const UserProfileDetailsScreen(),
     langSectionScreenRoute: (context) => const LangSectionScreen(),
     settingsSectionScreenRoute: (context) => const SettingsSectionScreen(),
   };

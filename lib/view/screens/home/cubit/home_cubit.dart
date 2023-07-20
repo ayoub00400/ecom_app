@@ -6,10 +6,10 @@ import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   bool isGrid = true;
-  List<Product>? productsList;
-  List<dynamic> categoriessList = [];
-  List<Product>? resultOfSearch;
-  int? selectedCatShip;
+  List<Product>? products;
+  List<dynamic> categories = [];
+  List<Product>? searchResult;
+  int? selectedCat;
 
   final productApiRepo = ProductRepoImp();
 
@@ -18,10 +18,10 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> loadProduct() async {
     try {
       emit(LoadingProducts());
-      selectedCatShip = null;
-      productsList = await productApiRepo.getAllProducts();
-      categoriessList = await productApiRepo.getAllProductsCategories();
-      resultOfSearch = productsList!;
+      selectedCat = null;
+      products = await productApiRepo.getAllProducts();
+      categories = await productApiRepo.getAllCategories();
+      searchResult = products!;
       emit(LoadingProductsDone());
     } catch (e) {
       emit(LoadingProductsError(e.toString()));
@@ -34,26 +34,28 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void searchProduct(String searchText) {
-    resultOfSearch = productsList!;
+    searchResult = products!;
 
     emit(LoadingProducts());
-    resultOfSearch = productsList!
+    searchResult = products!
         .where(
-          (element) => element.title.toLowerCase().contains(searchText.toLowerCase().trim()),
+          (element) => element.title
+              .toLowerCase()
+              .contains(searchText.toLowerCase().trim()),
         )
         .toList();
-    resultOfSearch = resultOfSearch!.isEmpty ? [] : resultOfSearch;
+    searchResult = searchResult!.isEmpty ? [] : searchResult;
 
     emit(LoadingProductsDone());
   }
 
   void selectedCategory(int index, String category) async {
     try {
-      emit(LoadingProducts());
-      selectedCatShip = index;
+      emit(LoadingCategories());
+      selectedCat = index;
 
-      productsList = await productApiRepo.getCategoryProducts(category);
-      resultOfSearch = productsList!;
+      products = await productApiRepo.getProductsByCategory(category);
+      searchResult = products!;
 
       emit(LoadingProductsDone());
     } catch (e) {

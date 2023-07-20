@@ -4,14 +4,14 @@ import '../../../utils/prefs.dart';
 import 'lang_state.dart';
 
 class LangCubit extends Cubit<LangState> {
-  String appLocal = 'en';
+  String appLang = 'en';
   LangCubit() : super(LangInitial());
   initLanguage() {
-    appLocal = Prefs.getString(SPKeys.language) ?? appLocal;
+    appLang = Prefs.getString(SPKeys.language) ?? appLang;
   }
 
   changeLang(String langCode) async {
-    appLocal = langCode;
+    appLang = langCode;
     await Prefs.setString(SPKeys.language, langCode);
     emit(LangChanged());
   }

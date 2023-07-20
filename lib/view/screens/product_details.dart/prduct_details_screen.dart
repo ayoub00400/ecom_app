@@ -1,9 +1,9 @@
 import 'package:ecom_app/config/language/cubit/lang_cubit.dart';
 import 'package:ecom_app/config/language/cubit/lang_state.dart';
+import 'package:ecom_app/utils/constants.dart';
 import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../model/product.dart';
 import '../../common/custom_button.dart';
@@ -61,7 +61,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                     },
                                     icon: const Icon(
                                       Icons.arrow_back_ios,
-                                      color: Colors.orange,
                                     ),
                                   ),
                                 ),
@@ -76,14 +75,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                   child: IconButton(
                                     iconSize: 20,
-                                    // style: ButtonStyle(
-                                    //   shape: MaterialStateProperty.all(
-                                    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                                     alignment: AlignmentDirectional.center,
                                     onPressed: () {},
                                     icon: const Icon(
                                       Icons.shopping_cart_outlined,
-                                      color: Colors.orange,
                                     ),
                                   ),
                                 ),
@@ -94,7 +89,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Constants.mediumPadding),
                       width: double.maxFinite,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +111,13 @@ class ProductDetailsScreen extends StatelessWidget {
                               BlocBuilder<LangCubit, LangState>(
                                 builder: (context, state) {
                                   return Text(
-                                    productData.price.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                    productData.price.priceFormatter(
+                                        BlocProvider.of<LangCubit>(context)
+                                            .appLang),
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 22,
-                                      color: Colors.green[800],
+                                      color: Constants.priceColor,
                                     ),
                                   );
                                 },
@@ -144,7 +142,6 @@ class ProductDetailsScreen extends StatelessWidget {
                             children: [
                               const Icon(
                                 Icons.star,
-                                color: Colors.orange,
                                 size: 18,
                               ),
                               const SizedBox(
@@ -220,7 +217,10 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+                padding: const EdgeInsets.only(
+                    bottom: Constants.smallPadding,
+                    left: Constants.mediumPadding,
+                    right: Constants.mediumPadding),
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

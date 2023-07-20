@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomRereshableBodyList extends StatelessWidget {
+class CustomList extends StatelessWidget {
   final String text;
   final Function() onRefresh;
-  const CustomRereshableBodyList({
+  const CustomList({
     super.key,
     required this.text,
     required this.onRefresh,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../model/user.dart';
 import '../../../utils/urls.dart';
@@ -12,7 +12,7 @@ class UserRepoImp implements IUserRepository {
     try {
       Map<String, dynamic> accessToken;
 
-      var response = await post(
+      var response = await http.post(
         Uri.parse(ApiHelper.authUser),
         body: {'username': username, 'password': password},
       );
@@ -28,7 +28,7 @@ class UserRepoImp implements IUserRepository {
   Future<User> getUser(int userId) async {
     try {
       User user;
-      var response = await get(Uri.parse('${ApiHelper.userData}/$userId'));
+      var response = await http.get(Uri.parse('${ApiHelper.userData}/$userId'));
       if (response.statusCode == 200) {
         var decodedResponse = json.decode(response.body);
         user = User.fromJson(decodedResponse);
@@ -42,9 +42,10 @@ class UserRepoImp implements IUserRepository {
   }
 
   @override
-  Future<bool> updateUserDetails({required int userId, required String body}) async {
+  Future<bool> updateUserDetails(
+      {required int userId, required String body}) async {
     try {
-      var response = await put(
+      var response = await http.put(
         Uri.parse(
           '${ApiHelper.userData}/$userId',
         ),

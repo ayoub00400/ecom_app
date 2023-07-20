@@ -13,7 +13,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   User? userData;
   UserDetailsCubit() : super(UserDetailsInitial());
   TextEditingController emailController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -21,8 +21,9 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   void initUserData(User userData) {
     this.userData = userData;
     emailController.text = this.userData!.email;
-    usernameController.text = this.userData!.username;
-    fullNameController.text = '${this.userData!.name.firstname} ${this.userData!.name.lastname}';
+    userNameController.text = this.userData!.username;
+    fullNameController.text =
+        '${this.userData!.name.firstname} ${this.userData!.name.lastname}';
     addressController.text =
         '${this.userData!.address.city},${this.userData!.address.street},${this.userData!.address.number}';
     phoneController.text = this.userData!.phone;
@@ -32,7 +33,8 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   void saveDetails(int userId) async {
     emit(UserDetailsUploading());
     try {
-      await userApiRepo.updateUserDetails(userId: userId, body: putEditedData());
+      await userApiRepo.updateUserDetails(
+          userId: userId, body: putEditedData());
 
       emit(UserDetailsUploadingDone());
     } catch (e) {
@@ -53,7 +55,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
       },
       'id': userData!.id,
       'email': emailController.text,
-      'username': usernameController.text,
+      'username': userNameController.text,
       'password': 'm38rmF\$',
       'name': Name(firstname: fullName[0], lastname: fullName[1]).toJson(),
       'phone': phoneController.text,

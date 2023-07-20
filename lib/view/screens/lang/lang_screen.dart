@@ -13,14 +13,16 @@ class LangSectionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: Constants.mediumPadding, vertical: Constants.mediumPadding),
+        padding: const EdgeInsets.symmetric(
+            horizontal: Constants.mediumPadding,
+            vertical: Constants.mediumPadding),
         child: BlocBuilder<LangCubit, LangState>(
           builder: (context, state) {
             return Column(
               children: [
                 RadioListTile(
                   value: 'en',
-                  groupValue: BlocProvider.of<LangCubit>(context).appLocal,
+                  groupValue: BlocProvider.of<LangCubit>(context).appLang,
                   onChanged: (value) {
                     BlocProvider.of<LangCubit>(context).changeLang(value!);
                   },
@@ -28,7 +30,7 @@ class LangSectionScreen extends StatelessWidget {
                 ),
                 RadioListTile(
                   value: 'ar',
-                  groupValue: BlocProvider.of<LangCubit>(context).appLocal,
+                  groupValue: BlocProvider.of<LangCubit>(context).appLang,
                   onChanged: (value) {
                     BlocProvider.of<LangCubit>(context).changeLang(value!);
                   },

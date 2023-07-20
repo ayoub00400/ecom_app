@@ -15,9 +15,11 @@ class ProductRepoImp implements IProductRepository {
       if (response.statusCode == 200) {
         List<dynamic> decodedResponse = jsonDecode(response.body);
 
-        List<Product> productsList = decodedResponse.map((product) => Product.fromJson(product)).toList();
+        List<Product> products = decodedResponse
+            .map((product) => Product.fromJson(product))
+            .toList();
 
-        return productsList;
+        return products;
       } else {
         throw Exception('error happened when fetching categories');
       }
@@ -27,12 +29,14 @@ class ProductRepoImp implements IProductRepository {
   }
 
   @override
-  Future<List<String>> getAllProductsCategories() async {
+  Future<List<String>> getAllCategories() async {
     try {
-      http.Response response = await http.get(Uri.parse(ApiHelper.allCategories));
+      http.Response response =
+          await http.get(Uri.parse(ApiHelper.allCategories));
 
       if (response.statusCode == 200) {
-        List<String> categories = (jsonDecode(response.body) as List).cast<String>();
+        List<String> categories =
+            (jsonDecode(response.body) as List).cast<String>();
 
         return categories;
       } else {
@@ -44,14 +48,17 @@ class ProductRepoImp implements IProductRepository {
   }
 
   @override
-  Future<List<Product>> getCategoryProducts(String category) async {
+  Future<List<Product>> getProductsByCategory(String category) async {
     try {
-      http.Response response = await http.get(Uri.parse(ApiHelper.getProductByCat + category));
+      http.Response response =
+          await http.get(Uri.parse(ApiHelper.getProductByCategory + category));
 
       if (response.statusCode == 200) {
         List<dynamic> decodedResponse = jsonDecode(response.body);
-        List<Product> productsList = decodedResponse.map((product) => Product.fromJson(product)).toList();
-        return productsList;
+        List<Product> products = decodedResponse
+            .map((product) => Product.fromJson(product))
+            .toList();
+        return products;
       } else {
         throw Exception('error happened when fetching categories');
       }

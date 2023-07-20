@@ -26,9 +26,9 @@ class ProductCard extends StatelessWidget {
         height: 310,
         width: 250,
         child: Card(
-          elevation: 5,
           clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Constants.borderRadius)),
           child: Column(
             children: [
               Flexible(
@@ -109,9 +109,9 @@ class ProductCard extends StatelessWidget {
                           child: BlocBuilder<LangCubit, LangState>(
                             builder: (context, state) {
                               return Text(
-                                // TODO : extract to method or extension
-
-                                productDetailes.price.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                productDetailes.price.priceFormatter(
+                                    BlocProvider.of<LangCubit>(context)
+                                        .appLang),
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.green[700],

@@ -2,11 +2,11 @@ import 'package:ecom_app/config/language/cubit/lang_state.dart';
 import 'package:ecom_app/utils/extensions/price_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../config/language/cubit/lang_cubit.dart';
 import '../../../../model/order_item.dart';
 import '../../../../utils/constants.dart';
+import '../../../components/confirmation_dialog.dart';
 import '../cubit/user_order_cubit.dart';
 
 class CustomOrderItem extends StatelessWidget {
@@ -29,27 +29,13 @@ class CustomOrderItem extends StatelessWidget {
         context.read<UserOrderCubit>().deleteSingleItem(orderItem.id!);
       },
       confirmDismiss: (direction) async {
-        await showDialog(
+        return await showDialog(
           context: context,
-          builder: (_) => AlertDialog(
-            content: const Text('R u sure to delete this item from list '),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: const Text('yes'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('no'),
-              ),
-            ],
+          builder: (_) => CustomDialog(
+            title: "",
+            content: 'R u sure to delete All items from Cart? ',
           ),
         );
-        return null;
       },
       direction: DismissDirection.horizontal,
       background: ValueListenableBuilder(
@@ -65,7 +51,8 @@ class CustomOrderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
                   child: Icon(
                     Icons.delete,
                     color: Colors.white,
@@ -75,7 +62,8 @@ class CustomOrderItem extends StatelessWidget {
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Constants.mediumPadding),
                   child: Text(
                     'Delete',
                     style: TextStyle(color: Colors.white),
@@ -92,7 +80,8 @@ class CustomOrderItem extends StatelessWidget {
           color: Colors.grey.shade100,
           clipBehavior: Clip.antiAlias,
           elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Constants.borderRadius)),
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
           child: Row(
             children: [
@@ -101,7 +90,9 @@ class CustomOrderItem extends StatelessWidget {
                 width: 120,
                 margin: const EdgeInsets.all(4),
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(Constants.borderRadius)),
                 child: Image.network(
                   orderItem.image!,
                   height: 150,
@@ -133,10 +124,13 @@ class CustomOrderItem extends StatelessWidget {
                         children: [
                           ValueListenableBuilder(
                             valueListenable: quantity,
-                            builder: (context, value, child) => BlocBuilder<LangCubit, LangState>(
+                            builder: (context, value, child) =>
+                                BlocBuilder<LangCubit, LangState>(
                               builder: (context, state) {
                                 return Text(
-                                  orderItem.total.priceFormat(BlocProvider.of<LangCubit>(context).appLocal),
+                                  orderItem.total.priceFormatter(
+                                      BlocProvider.of<LangCubit>(context)
+                                          .appLang),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -154,7 +148,8 @@ class CustomOrderItem extends StatelessWidget {
                                 height: 25,
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
                                       EdgeInsets.zero,
                                     ),
@@ -170,7 +165,8 @@ class CustomOrderItem extends StatelessWidget {
                                     if (orderItem.quantity != 0) {
                                       orderItem.quantity -= 1;
                                       quantity.value -= 1;
-                                      orderItem.total = orderItem.price * quantity.value;
+                                      orderItem.total =
+                                          orderItem.price * quantity.value;
                                     }
                                   },
                                   child: const Icon(
@@ -181,7 +177,8 @@ class CustomOrderItem extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(Constants.smallPadding),
+                                padding: const EdgeInsets.all(
+                                    Constants.smallPadding),
                                 child: ValueListenableBuilder(
                                   valueListenable: quantity,
                                   builder: (
@@ -204,7 +201,8 @@ class CustomOrderItem extends StatelessWidget {
                                 height: 25,
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.amber),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.amber),
                                     padding: MaterialStateProperty.all(
                                       EdgeInsets.zero,
                                     ),
@@ -219,7 +217,8 @@ class CustomOrderItem extends StatelessWidget {
                                   onPressed: () {
                                     orderItem.quantity += 1;
                                     quantity.value += 1;
-                                    orderItem.total = orderItem.price * orderItem.quantity;
+                                    orderItem.total =
+                                        orderItem.price * orderItem.quantity;
                                   },
                                   child: const Icon(
                                     Icons.add,

@@ -5,5 +5,5 @@ class ApiHelper {
   static const String allProducts = '$baseUrl/products';
   static const String userData = '$baseUrl/users';
   static const String allCategories = '$baseUrl/products/categories';
-  static const String getProductByCat = '$baseUrl/products/category/';
+  static const String getProductByCategory = '$baseUrl/products/category/';
 }

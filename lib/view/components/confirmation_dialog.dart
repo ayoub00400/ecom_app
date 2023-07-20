@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> confirmationDialog({required BuildContext context, String title = '', String content = ''}) {
-  return showDialog(
-    context: context,
-    builder: (_) => AlertDialog(
+class CustomDialog extends StatelessWidget {
+  final String title;
+
+  final String content;
+
+  const CustomDialog({super.key, required this.title, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
       title: Text(title),
       content: Text(content),
       actions: [
@@ -20,6 +26,6 @@ Future<dynamic> confirmationDialog({required BuildContext context, String title 
           child: const Text('no'),
         ),
       ],
-    ),
-  );
+    );
+  }
 }

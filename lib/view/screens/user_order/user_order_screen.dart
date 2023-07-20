@@ -26,8 +26,11 @@ class UserOrderScreen extends StatelessWidget {
               ),
               BlocBuilder<UserOrderCubit, UserCartState>(
                 builder: (context, state) {
-                  if (BlocProvider.of<UserOrderCubit>(context).orderItems.isNotEmpty) {
-                    return Text('(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
+                  if (BlocProvider.of<UserOrderCubit>(context)
+                      .orderItems
+                      .isNotEmpty) {
+                    return Text(
+                        '(${BlocProvider.of<UserOrderCubit>(context).orderItems.length.toString()})');
                   } else {
                     return const Text('(0)');
                   }
@@ -41,19 +44,28 @@ class UserOrderScreen extends StatelessWidget {
                 return GestureDetector(
                   onTap: () async {
                     // if (BlocProvider.of<UserOrderCubit>(context).orderItems == null) {}
-                    if (BlocProvider.of<UserOrderCubit>(context).orderItems.isEmpty) return;
+                    if (BlocProvider.of<UserOrderCubit>(context)
+                        .orderItems
+                        .isEmpty) return;
 
-                    bool result = await confirmationDialog(
+                    bool result = await showDialog(
                       context: context,
-                      content: 'R u sure to delete All items from Cart? ',
+                      builder: (_) => CustomDialog(
+                        title: "",
+                        content: 'R u sure to delete All items from Cart? ',
+                      ),
                     );
+
                     if (result) {
                       BlocProvider.of<UserOrderCubit>(context).deleteAllItems();
                     }
                   },
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Constants.smallPadding),
-                    child: Icon(Icons.delete_outline, size: 30, color: Colors.red),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Constants.smallPadding,
+                    ),
+                    child:
+                        Icon(Icons.delete_outline, size: 30, color: Colors.red),
                   ),
                 );
               },
@@ -62,7 +74,8 @@ class UserOrderScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
+            padding:
+                const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
             child: BlocBuilder<UserOrderCubit, UserCartState>(
               builder: (context, state) {
                 final orderCubit = BlocProvider.of<UserOrderCubit>(context);
@@ -78,7 +91,9 @@ class UserOrderScreen extends StatelessWidget {
                     child: ListView(
                       children: [
                         const SizedBox(height: 300),
-                        Container(alignment: AlignmentDirectional.center, child: Text(context.loc.emptyData)),
+                        Container(
+                            alignment: AlignmentDirectional.center,
+                            child: Text(context.loc.emptyData)),
                       ],
                     ),
                   );
@@ -108,14 +123,16 @@ class UserOrderScreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsetsDirectional.only(bottom: Constants.mediumPadding),
+                      padding: const EdgeInsetsDirectional.only(
+                          bottom: Constants.mediumPadding),
                       alignment: AlignmentDirectional.center,
                       child: CustomButton(
                         width: 300,
                         labelColor: Colors.black,
                         height: 45,
                         onPressed: () {},
-                        buttonLabel: '${context.loc.checkout.toUpperCase()} (${orderCubit.total.toString()} \$ )',
+                        buttonLabel:
+                            '${context.loc.checkout.toUpperCase()} (${orderCubit.total.toString()} \$ )',
                         buttColor: Colors.amber,
                       ),
                     )

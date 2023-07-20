@@ -12,7 +12,6 @@ class HomeLayoutScreen extends StatefulWidget {
 class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
   @override
   Widget build(BuildContext context) {
-    final PageStorageBucket bucket = PageStorageBucket();
     final List<Widget> pages = [
       RouterManager.generateRoute(RouterManager.homeScreenRoute),
       RouterManager.generateRoute(RouterManager.userCartScreenRoute),
@@ -24,26 +23,29 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
         valueListenable: index,
         builder: (context, value, child) {
           return BottomNavigationBar(
+            elevation: 100,
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
             currentIndex: index.value,
             onTap: (value) {
               index.value = value;
             },
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_2_outlined), label: 'Profile'),
             ],
           );
         },
       ),
-      body: PageStorage(
-        bucket: bucket,
-        child: ValueListenableBuilder(
-          valueListenable: index,
-          builder: (context, value, child) {
-            return pages[index.value];
-          },
-        ),
+      body: ValueListenableBuilder(
+        valueListenable: index,
+        builder: (context, value, child) {
+          return IndexedStack(index: index.value, children: pages);
+        },
       ),
     );
   }

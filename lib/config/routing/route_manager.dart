@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../view/screens/edite_profile_section/edite_profile_details_screen.dart';
+import '../../view/screens/edite_profile/edite_profile_details_screen.dart';
 import '../../view/screens/home/home_screen.dart';
 import '../../view/screens/home_layout/home_layout.dart';
-import '../../view/screens/lang_section/lang_section_screen.dart';
+import '../../view/screens/lang/lang_screen.dart';
 import '../../view/screens/login/login_screen.dart';
 import '../../view/screens/product_details.dart/prduct_details_screen.dart';
 import '../../view/screens/settings_section/setting_section_screen.dart';
@@ -17,7 +17,8 @@ class RouterManager {
   static const String userProfileScreenRoute = '/user_profile_screen';
   static const String userCartScreenRoute = '/cart_screen';
   static const String productDetailsScreenRoute = '/product_details_screen';
-  static const String userProfileDetailsScreenRoute = '/user_profile_details_screen';
+  static const String userProfileDetailsScreenRoute =
+      '/user_profile_details_screen';
   static const String langSectionScreenRoute = '/lang_section_screen';
   static const String settingsSectionScreenRoute = '/settings_section_screen';
 
@@ -59,7 +60,8 @@ class RouterManager {
     userCartScreenRoute: (context) => const UserOrderScreen(),
     userProfileScreenRoute: (context) => LoginScreen(),
     productDetailsScreenRoute: (context) => const ProductDetailsScreen(),
-    userProfileDetailsScreenRoute: (context) => const UserProfileDetailsScreen(),
+    userProfileDetailsScreenRoute: (context) =>
+        const UserProfileDetailsScreen(),
     langSectionScreenRoute: (context) => const LangSectionScreen(),
     settingsSectionScreenRoute: (context) => const SettingsSectionScreen(),
   };

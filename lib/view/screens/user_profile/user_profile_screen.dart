@@ -36,7 +36,8 @@ class UserProfileScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Text(
                       '${context.watch<LoginCubit>().userData!.name.firstname} ${context.watch<LoginCubit>().userData!.name.lastname}',
-                      style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 21, fontWeight: FontWeight.bold),
                     );
                   },
                 ),
@@ -46,32 +47,37 @@ class UserProfileScreen extends StatelessWidget {
                 Column(
                   children: [
                     CustomListTile(
-                      onTap: () => Navigator.of(context).pushNamed(RouterManager.userProfileDetailsScreenRoute),
+                      onTap: () => Navigator.of(context).pushNamed(
+                          RouterManager.userProfileDetailsScreenRoute),
                       title: context.loc.editeProfile,
-                      prefixIcon: Icons.person,
+                      prefixIcon: Icons.person_2_outlined,
                       suffixIcon: Icons.arrow_forward_ios_rounded,
                     ),
                     CustomListTile(
-                      onTap: () => Navigator.of(context).pushNamed(RouterManager.settingsSectionScreenRoute),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(RouterManager.settingsSectionScreenRoute),
                       title: context.loc.settings,
-                      prefixIcon: Icons.settings,
+                      prefixIcon: Icons.settings_outlined,
                       suffixIcon: Icons.arrow_forward_ios_rounded,
                     ),
                     CustomListTile(
-                      onTap: () => Navigator.of(context).pushNamed(RouterManager.langSectionScreenRoute),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(RouterManager.langSectionScreenRoute),
                       title: context.loc.language,
-                      prefixIcon: Icons.translate,
+                      prefixIcon: Icons.translate_outlined,
                       suffixIcon: Icons.arrow_forward_ios_rounded,
                     ),
                     BlocConsumer<UserProfileCubit, UserProfileState>(
                       listener: (context, state) {
                         if (state is LogOut) {
-                          Navigator.popAndPushNamed(context, RouterManager.loginScreenRoute);
+                          Navigator.popAndPushNamed(
+                              context, RouterManager.loginScreenRoute);
                         }
                       },
                       builder: (context, state) {
                         return CustomListTile(
-                          onTap: () => context.read<UserProfileCubit>().logOut(),
+                          onTap: () =>
+                              context.read<UserProfileCubit>().logOut(),
                           title: context.loc.logout,
                           prefixIcon: Icons.logout_rounded,
                           suffixIcon: Icons.arrow_forward_ios_rounded,

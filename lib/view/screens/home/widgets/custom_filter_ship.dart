@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/constants.dart';
 
 class CustomFilterShip extends StatelessWidget {
-  final int shipIndex;
+  final int index;
   final String label;
-  const CustomFilterShip({super.key, required this.label, required this.shipIndex});
+  const CustomFilterShip({super.key, required this.label, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,13 @@ class CustomFilterShip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
       child: GestureDetector(
         onTap: () {
-          BlocProvider.of<HomeCubit>(context).selectedCategory(shipIndex, label);
+          BlocProvider.of<HomeCubit>(context).selectedCategory(index, label);
         },
         child: Chip(
-          backgroundColor: shipIndex == BlocProvider.of<HomeCubit>(context).selectedCatShip ? Colors.amber : null,
+          backgroundColor:
+              index == BlocProvider.of<HomeCubit>(context).selectedCat
+                  ? Colors.amber
+                  : null,
           label: Text(label),
         ),
       ),

@@ -40,7 +40,9 @@ class MyApp extends StatelessWidget {
                 title: 'Ecomme App',
                 themeMode: ThemeMode.light,
                 theme: lightThemeData,
-                initialRoute: (BlocProvider.of<LoginCubit>(context).token != null &&
+                darkTheme: ThemeData.dark(),
+                initialRoute: (BlocProvider.of<LoginCubit>(context).token !=
+                            null &&
                         BlocProvider.of<LoginCubit>(context).userData != null)
                     ? RouterManager.homeLayoutScreenRoute
                     : RouterManager.loginScreenRoute,
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
-                locale: Locale(BlocProvider.of<LangCubit>(context).appLocal),
+                locale: Locale(BlocProvider.of<LangCubit>(context).appLang),
               );
             },
           );

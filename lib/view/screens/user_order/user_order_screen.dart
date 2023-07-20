@@ -127,6 +127,7 @@ class UserOrderScreen extends StatelessWidget {
                           bottom: Constants.mediumPadding),
                       alignment: AlignmentDirectional.center,
                       child: CustomButton(
+                        isLoading: false,
                         width: 300,
                         labelColor: Colors.black,
                         height: 45,

@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
   final String buttonLabel;
   final double width;
   final double height;
+  final bool isLoading;
   const CustomButton({
     super.key,
     required this.buttonLabel,
@@ -19,6 +20,7 @@ class CustomButton extends StatelessWidget {
     this.labelColor = Colors.black,
     this.width = 150,
     this.height = 50,
+    required this.isLoading,
   });
 
   @override
@@ -35,22 +37,18 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         // remove bloc builder
         child: Builder(
-          builder: (ctx) => BlocBuilder<LoginCubit, LoginState>(
-            builder: (ctx, state) {
-              return state is LoginLoading
-                  ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      buttonLabel,
-                      style: TextStyle(color: labelColor),
-                    );
-            },
-          ),
+          builder: (ctx) => isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  buttonLabel,
+                  style: TextStyle(color: labelColor),
+                ),
         ),
       ),
     );

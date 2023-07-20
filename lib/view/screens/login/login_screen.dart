@@ -10,8 +10,10 @@ import 'cubit/login_state.dart';
 import 'widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameFieldController = TextEditingController(text: 'johnd');
-  final TextEditingController passwordFieldController = TextEditingController(text: 'm38rmF\$');
+  final TextEditingController usernameFieldController =
+      TextEditingController(text: 'johnd');
+  final TextEditingController passwordFieldController =
+      TextEditingController(text: 'm38rmF\$');
   final formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
@@ -21,12 +23,14 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginDone) {
-            Navigator.of(context).popAndPushNamed(RouterManager.homeLayoutScreenRoute);
+            Navigator.of(context)
+                .popAndPushNamed(RouterManager.homeLayoutScreenRoute);
           }
         },
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
+            padding:
+                const EdgeInsets.symmetric(horizontal: Constants.smallPadding),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -35,7 +39,8 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: Constants.smallPadding),
+                    padding:
+                        const EdgeInsets.only(left: Constants.smallPadding),
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       context.loc.loginHeader,
@@ -73,6 +78,7 @@ class LoginScreen extends StatelessWidget {
                             );
                           }
                         },
+                        isLoading: state is LoginLoading ? true : false,
                       );
                     },
                   ),
@@ -92,7 +98,8 @@ class LoginScreen extends StatelessWidget {
                           onTap: () {},
                           child: Text(
                             context.loc.register,
-                            style: const TextStyle(fontSize: 18, color: Colors.amber),
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.amber),
                           ),
                         ),
                       ],

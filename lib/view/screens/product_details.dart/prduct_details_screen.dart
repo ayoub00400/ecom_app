@@ -227,6 +227,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomButton(
+                        isLoading: false,
                         onPressed: () {},
                         buttonLabel: 'ADD TO CART',
                         buttColor: Colors.white,
@@ -237,6 +238,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: CustomButton(
+                        isLoading: false,
                         onPressed: () {},
                         buttonLabel: 'BUY NOW',
                         buttColor: Colors.black,

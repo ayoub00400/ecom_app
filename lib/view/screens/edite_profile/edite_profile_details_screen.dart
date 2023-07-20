@@ -121,6 +121,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CustomButton(
+                      isLoading: false,
                       width: 300,
                       buttonLabel: context.loc.save,
                       onPressed: () {

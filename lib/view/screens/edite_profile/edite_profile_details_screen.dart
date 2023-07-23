@@ -1,9 +1,9 @@
+import 'package:botton/botton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../utils/extensions/build_context.dart';
-import '../../common/custom_button.dart';
 import '../login/cubit/login_cubit.dart';
 import '../login/widgets/custom_text_field.dart';
 import 'cubit/user_details_cubit.dart';
@@ -14,8 +14,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserDetailsCubit()
-        ..initUserData(context.read<LoginCubit>().userData!),
+      create: (context) => UserDetailsCubit()..initUserData(context.read<LoginCubit>().userData!),
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -67,8 +66,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 36,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().emailController,
+                      controller: context.read<UserDetailsCubit>().emailController,
                       label: context.loc.email,
                       prefixIcon: Icons.email,
                     ),
@@ -76,8 +74,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().userNameController,
+                      controller: context.read<UserDetailsCubit>().userNameController,
                       label: context.loc.username,
                       prefixIcon: Icons.person,
                     ),
@@ -85,8 +82,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().fullNameController,
+                      controller: context.read<UserDetailsCubit>().fullNameController,
                       label: context.loc.fullName,
                       prefixIcon: Icons.person,
                     ),
@@ -94,8 +90,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().addressController,
+                      controller: context.read<UserDetailsCubit>().addressController,
                       label: context.loc.address,
                       prefixIcon: Icons.location_city,
                     ),
@@ -103,8 +98,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().zipCodeController,
+                      controller: context.read<UserDetailsCubit>().zipCodeController,
                       label: context.loc.zipCode,
                       prefixIcon: Icons.pin,
                     ),
@@ -112,8 +106,7 @@ class UserProfileDetailsScreen extends StatelessWidget {
                       height: 8,
                     ),
                     CustomTextField(
-                      controller:
-                          context.read<UserDetailsCubit>().phoneController,
+                      controller: context.read<UserDetailsCubit>().phoneController,
                       label: context.loc.phoneNumber,
                       prefixIcon: Icons.phone,
                     ),
